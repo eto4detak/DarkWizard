@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8152132362694091512}
-  - component: {fileID: 3943819912168386228}
-  - component: {fileID: 2890114273614515527}
   - component: {fileID: 7194850282367070711}
-  - component: {fileID: 5298800203155508406}
+  - component: {fileID: 2246653140487575146}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -36,46 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3943819912168386228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8152132362694091515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 658987d89740cf7488b6043c51cd3487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  run: 0
-  isDie: 0
-  health: 10
-  anim: {fileID: 8152132363893465379}
-  body: {fileID: 0}
-  dieUnit:
-    m_PersistentCalls:
-      m_Calls: []
-  sword: {fileID: 0}
-  doll: {fileID: 0}
-  swordCollider: {fileID: 0}
-  moveSpeed: 1
-  canDamage: 0
-  firePoint: {fileID: 8369083707740706804}
-  target: {fileID: 0}
---- !u!114 &2890114273614515527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8152132362694091515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40b9d7552ee934b4ab4b0edc5d397131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &7194850282367070711
 CharacterController:
   m_ObjectHideFlags: 0
@@ -94,7 +52,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5298800203155508406
+--- !u!114 &2246653140487575146
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,9 +61,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 8152132362694091515}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef08ada6f3eae814f892df33baee4275, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b6695cc9c0d5c943b88984dd4eff6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  run: 0
+  isDie: 0
+  health: 100
+  anim: {fileID: 8152132363893465379}
+  body: {fileID: 0}
+  dieUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  sword: {fileID: 0}
+  doll: {fileID: 0}
+  swordCollider: {fileID: 0}
+  moveSpeed: 3
+  canDamage: 0
+  firePoint: {fileID: 8369083707740706804}
+  target: {fileID: 0}
 --- !u!1 &8369083707740706804
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +177,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1603316765080152279, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 52fb7871ec79647458614b2eb00d439d, type: 2}
     - target: {fileID: 1603316765089138355, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
         type: 3}
       propertyPath: m_LocalScale.x

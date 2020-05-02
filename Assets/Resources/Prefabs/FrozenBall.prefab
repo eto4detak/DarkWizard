@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1411031511637434925}
-  - component: {fileID: 2984227619732413450}
   - component: {fileID: 2624404593079962441}
   - component: {fileID: 750993936354943726}
+  - component: {fileID: 1170927814361469311}
   m_Layer: 0
   m_Name: FrozenBall
   m_TagString: Untagged
@@ -35,19 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2984227619732413450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8798507173413713042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dbcd26902b1f0246829597291ae46d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphere: {fileID: 2624404593079962441}
 --- !u!54 &2624404593079962441
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -77,6 +64,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1170927814361469311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8798507173413713042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b8152aff50fb14abedf9a596b21310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 2624404593079962441}
 --- !u!1001 &5871021835342797359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -259,14 +259,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1411031511637434925}
     m_Modifications:
-    - target: {fileID: 176132, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
-      propertyPath: m_Name
-      value: Candle
-      objectReference: {fileID: 0}
-    - target: {fileID: 176132, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 432780, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -309,6 +301,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 432780, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 176132, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
+      propertyPath: m_Name
+      value: Candle
+      objectReference: {fileID: 0}
+    - target: {fileID: 176132, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 450544, guid: 0fb7af8b558617043bb7695988ca9715, type: 3}

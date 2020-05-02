@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1628923226307523665}
-  - component: {fileID: 5962597184170414744}
   - component: {fileID: 8333285992031319724}
   - component: {fileID: 8061852343076311176}
+  - component: {fileID: 8463379846272050528}
   m_Layer: 0
   m_Name: PhobiaBall
   m_TagString: Untagged
@@ -34,19 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5962597184170414744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1161813962335518229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a0bba29bec72a042a42f31a43134cb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sphere: {fileID: 8333285992031319724}
 --- !u!54 &8333285992031319724
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -76,6 +63,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8463379846272050528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161813962335518229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d30102c6555ba149813661470f6cfbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 8333285992031319724}
 --- !u!1001 &2649066363329154340
 PrefabInstance:
   m_ObjectHideFlags: 0
