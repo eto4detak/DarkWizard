@@ -10,6 +10,7 @@ public class MagicShieldSpell : IMagicSpell
         MagicShield prefabBall = GetPrefab();
 
         MagicShield shield = GameObject.Instantiate(prefabBall, info.owner.transform.position, Quaternion.identity);
+        MagicManager.instance.RegisterMagic(shield);
         shield.transform.parent = info.owner.transform;
         GameObject.Destroy(shield.gameObject, destroyTime);
     }

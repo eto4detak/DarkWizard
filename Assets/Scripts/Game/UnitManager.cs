@@ -22,7 +22,6 @@ public class UnitManager : Singleton<UnitManager>
     }
 
 
-
     public void Setup()
     {
         units = FindObjectsOfTypeAll<Unit>();

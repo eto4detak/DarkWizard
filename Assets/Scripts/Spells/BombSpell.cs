@@ -12,6 +12,7 @@ public class BombSpell : IMagicSpell
         for (int i = 0; i < bombCount; i++)
         {
             Bomb bomb = GameObject.Instantiate(prefabBomb);
+            MagicManager.instance.RegisterMagic(bomb);
             Vector3? position = FindArea(info.owner.transform.position, info.owner.target.transform.position);
             if(position != null)
             {

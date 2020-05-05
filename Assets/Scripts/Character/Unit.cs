@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Events;
 
 public class Unit : MonoBehaviour
@@ -18,22 +20,23 @@ public class Unit : MonoBehaviour
     public GameObject firePoint;
     public Unit target;
 
-
-    private float gravity;
-    private CharacterController ch_controller;
-    private Vector3 movement = Vector3.zero;
-    private Rigidbody[] dollBodys;
-    private UnitState attackType;
     private bool isMove;
-    private Vector3 direction;
     private float spellTime = 1f;
     private float currentSpellTime;
+    private float gravity;
+    private Vector3 push;
+    private Vector3 direction;
+    private Vector3 movement = Vector3.zero;
+    private UnitState attackType;
+    //private CharacterController ch_controller;
+    private Rigidbody[] dollBodys;
+    private NavMeshAgent agent;
+    
 
     private void Awake()
     {
-        ch_controller = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
     }
-
 
     private void FixedUpdate()
     {
@@ -45,18 +48,12 @@ public class Unit : MonoBehaviour
         {
             direction = target.transform.position - transform.position;
         }
-        if (isMove)
-        {
-            ChangeState(UnitState.Run);
-        }
-        else
-        {
-            ChangeState(UnitState.Idle);
-        }
+
         if (run) movement = movement + transform.forward;
-        GamingGravity();
         movement.y = gravity;
         StepMove();
+        if (isMove) ChangeState(UnitState.Run);
+        else    ChangeState(UnitState.Idle);
         isMove = false;
     }
 
@@ -106,18 +103,6 @@ public class Unit : MonoBehaviour
             case UnitState.Spell:
                 anim.SetTrigger("Spell");
                 break;
-            //case UnitState.AttackSlash2:
-            //    anim.SetBool("Attack", true);
-            //    anim.SetTrigger("AttackSlash2");
-            //    break;
-            //case UnitState.Attack4:
-            //    anim.SetBool("Attack", true);
-            //    anim.SetTrigger("Attack4");
-            //    break;
-            //case UnitState.Attack5:
-            //    break;
-            //case UnitState.Attack6:
-            //    break;
             default:
                 break;
         }
@@ -154,9 +139,9 @@ public class Unit : MonoBehaviour
 
     public void Teleport(Vector3 toPoint)
     {
-        ch_controller.enabled = false;
-        transform.position = toPoint;
-        ch_controller.enabled = true;
+        //ch_controller.enabled = false;
+        //transform.position = toPoint;
+        //ch_controller.enabled = true;
     }
 
     public void Stop()
@@ -171,41 +156,61 @@ public class Unit : MonoBehaviour
 
     public void Move(Vector3 p_movement)
     {
-        isMove = true;
+
         movement += p_movement;
     }
 
 
-    private void StepMove()
+    public void Push(Vector3 direction)
     {
-        float singleStep = moveSpeed * Time.deltaTime * 5;
-        Vector3 rotateDirection;
-        //rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
-        if (movement.sqrMagnitude > 0.0001) rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
-        else rotateDirection = Vector3.RotateTowards(transform.forward, direction, singleStep, 0.0f);
-        rotateDirection.y = 0;
-        transform.rotation = Quaternion.LookRotation(rotateDirection);
-        Vector3 stepMove = movement.normalized * Time.fixedDeltaTime * moveSpeed;
-        stepMove.y = gravity;
-        ch_controller.Move(stepMove);
-        movement = Vector3.zero;
+        push = transform.position + direction;
     }
 
 
     public void TakeDamage(Damage damage)
     {
-        health -= damage.value;
+        health -= damage.damageValue;
         ChangeState(UnitState.Hurt);
+        ApplyEffects(damage.effects);
         if (health <= 0)
         {
             health = 0;
             OnDie(damage);
         }
     }
-    private void GamingGravity()
+
+
+    private void ApplyEffects(List<IUnitEffect> effects)
     {
-        if (!ch_controller.isGrounded) gravity -= Time.fixedDeltaTime / 4;
-        else gravity = 0;
+        for (int i = 0; i < effects.Count; i++)
+        {
+            effects[i].Apply(this);
+        }
+
+    }
+
+    private void StepMove()
+    {
+        if(push != Vector3.zero)
+        {
+            agent.destination = push;
+            if (agent.remainingDistance <= agent.stoppingDistance * 2 )
+                push = Vector3.zero;
+        }
+        else
+        {
+            if (movement != Vector3.zero)  isMove = true;
+            float singleStep = moveSpeed * Time.deltaTime * 5;
+            Vector3 rotateDirection;
+            if (movement.sqrMagnitude > 0.0001) rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
+            else rotateDirection = Vector3.RotateTowards(transform.forward, direction, singleStep, 0.0f);
+            rotateDirection.y = 0;
+            transform.rotation = Quaternion.LookRotation(rotateDirection);
+            Vector3 stepMove = movement.normalized * moveSpeed;
+            stepMove.y = 0;
+            agent.destination = transform.position + stepMove;
+        }
+        movement = Vector3.zero;
     }
 
     private void OnDie(Damage damage)
@@ -234,6 +239,13 @@ public class Unit : MonoBehaviour
         //    }
         //}
 
+    }
+
+
+    private void GamingGravity()
+    {
+        //if (!ch_controller.isGrounded) gravity -= Time.fixedDeltaTime / 4;
+        //else gravity = 0;
     }
 
 

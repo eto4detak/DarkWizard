@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Damage
 {
-    public float value = 1f;
+    public float damageValue = 1f;
     public Vector3 attackDirection;
     public Collider damageBody;
+    public List<IUnitEffect> effects = new List<IUnitEffect>();
 
-    private DamageType type = DamageType.Melee;
+    private DamageType type = DamageType.Arrow;
 
-    public Damage(Vector3 p_directionAttack)
+    public Damage()
     {
-        attackDirection = p_directionAttack;
     }
 
 }

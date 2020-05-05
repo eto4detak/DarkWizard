@@ -12,6 +12,7 @@ public class MagicTeleportSpell : IMagicSpell
 
         GameObject preefabTeleport = GetPrefab();
         GameObject teleport = GameObject.Instantiate(preefabTeleport, info.owner.transform.position, Quaternion.identity);
+
         info.owner.Teleport(newPos);
         GameObject teleportClose = GameObject.Instantiate(preefabTeleport, newPos, Quaternion.identity);
         GameObject.Destroy(teleport.gameObject, time);

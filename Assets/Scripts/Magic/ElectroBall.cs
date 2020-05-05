@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElectroBall : MonoBehaviour, IMagic
+public class ElectroBall : IMagic
 {
     public SpellInfo info;
     public bool isFind = true;

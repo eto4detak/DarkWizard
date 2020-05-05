@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class FrozenBall : MonoBehaviour, IMagic
+public class FrozenBall : IMagic
 {
     public Rigidbody sphere;
 
-    private bool one;
+    private bool once;
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (one) return;
+        if (once) return;
         Unit enemy = collider.GetComponent<Unit>();
         if (enemy)
         {
-            one = true;
+            once = true;
             float distance = 10000;
             Destroy(sphere);
-            enemy.TakeDamage(new Damage(enemy.transform.position - transform.position));
+            enemy.TakeDamage(new Damage {attackDirection = enemy.transform.position - transform.position });
             transform.position = transform.position + transform.forward * distance;
             Destroy(gameObject, 2f);
         }

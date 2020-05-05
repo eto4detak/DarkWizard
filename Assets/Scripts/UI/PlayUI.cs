@@ -17,11 +17,11 @@ public class PlayUI : MonoBehaviour
     }
     public void ClickAttack2()
     {
-        owner.ChangeState(UnitState.Spell);
+        owner.ApplySpell(new SwordSpell());
     }
     public void ClickAttack3()
     {
-        owner.ChangeState(UnitState.AttackSlash2);
+        owner.ApplySpell(new FrozenBallSpell());
     }
 
 

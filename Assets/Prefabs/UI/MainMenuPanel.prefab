@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 2698355248178598196}
   - component: {fileID: 2698355248178598202}
   - component: {fileID: 2698355248178598197}
-  - component: {fileID: 8997403600019390069}
+  - component: {fileID: 8665471083645506071}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -1181,7 +1181,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &8997403600019390069
+--- !u!114 &8665471083645506071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1190,7 +1190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2698355248178598199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95e0a0572fc6c6045949e909ee75744a, type: 3}
+  m_Script: {fileID: 11500000, guid: bf01eb2df4a89654f94f1df96a0d95a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   buttonPref: {fileID: 0}
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   btnRestart: {fileID: 0}
   btnLevels: {fileID: 0}
   btnExit: {fileID: 0}
-  btnBack: {fileID: 0}
+  btnBack: {fileID: 2698355248918159738}
   btnSettings: {fileID: 0}
 --- !u!1 &2698355248178601562
 GameObject:
@@ -3690,11 +3690,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5003655299673691259}
     m_Modifications:
-    - target: {fileID: 8095657968809022531, guid: e805eef2a41eea44aa2d284d0d1d245c,
-        type: 3}
-      propertyPath: m_Name
-      value: SettingPopup
-      objectReference: {fileID: 0}
     - target: {fileID: 8095657968809022528, guid: e805eef2a41eea44aa2d284d0d1d245c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3799,6 +3794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8095657968809022531, guid: e805eef2a41eea44aa2d284d0d1d245c,
+        type: 3}
+      propertyPath: m_Name
+      value: SettingPopup
       objectReference: {fileID: 0}
     - target: {fileID: 8095657969842614771, guid: e805eef2a41eea44aa2d284d0d1d245c,
         type: 3}

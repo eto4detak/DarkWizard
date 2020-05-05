@@ -10,6 +10,7 @@ public class FireWallSpell : IMagicSpell
         float maxDistance = 5f;
         FireWall prefabBall = GetPrefab();
         FireWall wall = GameObject.Instantiate(prefabBall);
+        MagicManager.instance.RegisterMagic(wall);
         Vector3 direction = (info.owner.target.transform.position - info.owner.transform.position).normalized;
         wall.transform.position = info.owner.transform.position + direction * maxDistance;
         wall.transform.LookAt(info.owner.transform);

@@ -772,7 +772,7 @@ GameObject:
   - component: {fileID: 222452041839188636}
   - component: {fileID: 114308251355262634}
   - component: {fileID: 114255877629687580}
-  - component: {fileID: 8641521062215777578}
+  - component: {fileID: 8429795868003259260}
   m_Layer: 5
   m_Name: Main menu
   m_TagString: Untagged
@@ -876,7 +876,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8641521062215777578}
+      - m_Target: {fileID: 8429795868003259260}
         m_MethodName: LoadScene
         m_Mode: 1
         m_Arguments:
@@ -899,7 +899,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8641521062215777578
+--- !u!114 &8429795868003259260
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -908,7 +908,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1535006603250148}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3c29b449307a3449cb52f79031862c, type: 3}
+  m_Script: {fileID: 11500000, guid: d80e26ecbc67505498419b9259a411ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoadName: MainMenu
@@ -1210,10 +1210,10 @@ GameObject:
   m_Component:
   - component: {fileID: 224321764056452910}
   - component: {fileID: 222259876022092386}
-  - component: {fileID: 4941763396331804267}
   - component: {fileID: 82438393256394770}
   - component: {fileID: 223019906111977400}
   - component: {fileID: 114961964575010888}
+  - component: {fileID: 621073271595870623}
   m_Layer: 5
   m_Name: End Game Screen
   m_TagString: Untagged
@@ -1251,26 +1251,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1655237973467104}
   m_CullTransparentMesh: 0
---- !u!114 &4941763396331804267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655237973467104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fef9771b0841e6d4dbb1a86e6fb30393, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  levelCompleteText: '{0} COMPLETE!'
-  levelFailedText: '{0} FAILED!'
-  endGameMessageText: {fileID: 114444767888515022}
-  background: {fileID: 114977527437981662}
-  winBackgroundColor: {r: 1, g: 0.9793272, b: 0.4009434, a: 0.5019608}
-  loseBackgroundColor: {r: 0.9339623, g: 0.5662494, b: 0.36565503, a: 0.5019608}
-  endGameCanvas: {fileID: 223019906111977400}
-  nextLevelButton: {fileID: 223444885329299750}
 --- !u!82 &82438393256394770
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1405,6 +1385,26 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &621073271595870623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655237973467104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2689bdb6a7b019e4eb57d30536dbdf29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCompleteText: '{0} COMPLETE!'
+  levelFailedText: '{0} FAILED!'
+  endGameMessageText: {fileID: 114444767888515022}
+  background: {fileID: 114977527437981662}
+  winBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  loseBackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  endGameCanvas: {fileID: 223019906111977400}
+  nextLevelButton: {fileID: 223444885329299750}
 --- !u!1 &1693158234817380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1612,7 @@ GameObject:
   - component: {fileID: 222343218598025882}
   - component: {fileID: 114991487896233194}
   - component: {fileID: 114456578896449128}
+  - component: {fileID: 7040327696385503141}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -1715,8 +1716,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4941763396331804267}
-        m_MethodName: RestartLevel
+      - m_Target: {fileID: 7040327696385503141}
+        m_MethodName: RestartCurrentScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1726,6 +1727,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7040327696385503141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821589416601146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d80e26ecbc67505498419b9259a411ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoadName: LevelSelect
 --- !u!1 &1869865264891460
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,7 +1754,7 @@ GameObject:
   - component: {fileID: 114812932325665796}
   - component: {fileID: 223444885329299750}
   - component: {fileID: 114523364629233480}
-  - component: {fileID: 6431080812179822788}
+  - component: {fileID: 1078561563544090927}
   m_Layer: 5
   m_Name: Next Level
   m_TagString: Untagged
@@ -1844,7 +1858,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6431080812179822788}
+      - m_Target: {fileID: 1078561563544090927}
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
@@ -1893,7 +1907,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6431080812179822788
+--- !u!114 &1078561563544090927
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1902,7 +1916,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1869865264891460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3c29b449307a3449cb52f79031862c, type: 3}
+  m_Script: {fileID: 11500000, guid: d80e26ecbc67505498419b9259a411ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoadName: LevelSelect

@@ -1,33 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIMag : MonoBehaviour
 {
     private Unit owner;
-    private float currentTime;
-    private float turnTime = 1f;
-    private Vector3 moveDirection;
+    private IAITactics currentTactics;
+    private List<IAITactics> tactics = new List<IAITactics>();
 
     private void Awake()
     {
         owner = GetComponent<Unit>();
-        currentTime = turnTime;
-        moveDirection = Vector3.forward;
+        //tactics.Add( new AttackTactics(owner) );
+        //tactics.Add( new EvasionTactics(owner) );
+        tactics.Add( new SpellEvasionTactics(owner) );
     }
 
     private void FixedUpdate()
     {
-        if(currentTime > 0)
+        currentTactics = FindTactics();
+        if(currentTactics != null)
         {
-            currentTime -= Time.fixedDeltaTime;
+            currentTactics.Control();
         }
-        else
+    }
+
+
+    private IAITactics FindTactics()
+    {
+        float need = -1;
+        float currentNeed;
+        IAITactics result = null;
+        for (int i = 0; i < tactics.Count; i++)
         {
-            currentTime = turnTime;
-            moveDirection *= -1;
+            currentNeed = tactics[i].CheckNeed();
+            if (currentNeed > need)
+            {
+                need = currentNeed;
+                result = tactics[i];
+            }
         }
-        owner.Move(moveDirection);
+        return result;
     }
 
 

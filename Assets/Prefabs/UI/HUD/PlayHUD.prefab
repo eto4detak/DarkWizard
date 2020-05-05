@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1452676542393987713}
   - component: {fileID: 1590971034556450091}
   - component: {fileID: 1482948279806575323}
-  - component: {fileID: 8586552821109727556}
+  - component: {fileID: 385871422251627306}
   m_Layer: 5
   m_Name: PlayHUD
   m_TagString: Untagged
@@ -185,7 +185,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8586552821109727556
+--- !u!114 &385871422251627306
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1516008523579010419}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c68cc8999378042924b7e3b15042d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9b1d58cf332b6184d864567c0ebbc202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   owner: {fileID: 0}
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8586552821109727556}
+      - m_Target: {fileID: 385871422251627306}
         m_MethodName: ClickAttack1
         m_Mode: 1
         m_Arguments:
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8586552821109727556}
+      - m_Target: {fileID: 385871422251627306}
         m_MethodName: ClickAttack2
         m_Mode: 1
         m_Arguments:
@@ -926,7 +926,7 @@ GameObject:
   - component: {fileID: 395592606372592110}
   - component: {fileID: 8484833895071431932}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button W
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -973,7 +973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8586552821109727556}
+      - m_Target: {fileID: 385871422251627306}
         m_MethodName: ClickW
         m_Mode: 1
         m_Arguments:

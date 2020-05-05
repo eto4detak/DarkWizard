@@ -13809,4 +13809,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a87103ff2fa6aff44bed80cf35171319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 2
+  type: 0
+  direction: {x: 0, y: 0, z: 0}
   sphere: {fileID: 4672232166772653158}

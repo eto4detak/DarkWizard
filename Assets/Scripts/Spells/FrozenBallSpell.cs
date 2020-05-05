@@ -11,6 +11,7 @@ public class FrozenBallSpell : IMagicSpell
         FrozenBall prefabBall = GetPrefab();
 
         FrozenBall ball = GameObject.Instantiate(prefabBall);
+        MagicManager.instance.RegisterMagic(ball);
         Vector3 movement = info.owner.GetMovement();
         movement.y = 0;
 

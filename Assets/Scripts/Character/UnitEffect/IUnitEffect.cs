@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rain : IMagic
+public interface IUnitEffect
 {
-
+    void Apply(Unit target);
 }

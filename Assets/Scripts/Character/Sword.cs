@@ -17,7 +17,7 @@ public class Sword : MonoBehaviour
         Unit enemy = other.GetComponent<Unit>();
         if (enemy)
         {
-            Damage damage = new Damage(transform.forward)
+            Damage damage = new Damage()
             {
                 damageBody = other
             };
