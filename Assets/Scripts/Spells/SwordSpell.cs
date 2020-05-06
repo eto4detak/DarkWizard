@@ -9,6 +9,7 @@ public class SwordSpell : IMagicSpell
         float destroyTime = 3;
         MagicSword prefabBall = GetPrefab();
         MagicSword sword = GameObject.Instantiate(prefabBall, info.owner.target.transform.position, Quaternion.identity);
+        sword.Setup(info);
         MagicManager.instance.RegisterMagic(sword);
         GameObject.Destroy(sword.gameObject, destroyTime);
     }

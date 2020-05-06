@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PhobiaBall : IMagic
 {
-    public Rigidbody sphere;
+    [SerializeField] private Rigidbody sphere;
 
     private bool one;
+    private float force = 300f;
+
+    public void Setup()
+    {
+        sphere.AddForce(direction.normalized * force, ForceMode.Force);
+    }
 
 
     private void OnTriggerEnter(Collider collider)

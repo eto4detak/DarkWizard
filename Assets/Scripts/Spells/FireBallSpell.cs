@@ -18,7 +18,7 @@ public class FireBallSpell : IMagicSpell
         Vector3 direction = (ball.transform.position - info.owner.transform.position);
         direction.y = 0;
         ball.direction = direction.normalized;
-        ball.Setup();
+        ball.Setup(new SpellInfo());
         GameObject.Destroy(ball.gameObject, destroyTime);
     }
 

@@ -12,8 +12,8 @@ public class AIMag : MonoBehaviour
     private void Awake()
     {
         owner = GetComponent<Unit>();
-        //tactics.Add( new AttackTactics(owner) );
-        //tactics.Add( new EvasionTactics(owner) );
+        tactics.Add(new AttackTactics(owner));
+        tactics.Add(new EvasionTactics(owner));
         tactics.Add( new SpellEvasionTactics(owner) );
     }
 

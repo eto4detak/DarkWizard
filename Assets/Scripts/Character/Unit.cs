@@ -25,10 +25,10 @@ public class Unit : MonoBehaviour
     private float currentSpellTime;
     private float gravity;
     private Vector3 push;
+    private float currentPushTime;
     private Vector3 direction;
     private Vector3 movement = Vector3.zero;
     private UnitState attackType;
-    //private CharacterController ch_controller;
     private Rigidbody[] dollBodys;
     private NavMeshAgent agent;
     
@@ -163,7 +163,11 @@ public class Unit : MonoBehaviour
 
     public void Push(Vector3 direction)
     {
-        push = transform.position + direction;
+        direction.y = 0;
+        
+        push = transform.position + direction.normalized;
+
+        currentPushTime = 0.5f;
     }
 
 
@@ -191,14 +195,25 @@ public class Unit : MonoBehaviour
 
     private void StepMove()
     {
-        if(push != Vector3.zero)
+        if(currentPushTime > 0)
         {
-            agent.destination = push;
-            if (agent.remainingDistance <= agent.stoppingDistance * 2 )
-                push = Vector3.zero;
+            agent.isStopped = false;
+            Debug.Log("push");
+            currentPushTime -= Time.fixedDeltaTime;
+            if(currentPushTime <= 0)
+            {
+                agent.isStopped = true;
+            }
+            else
+            {
+                agent.destination = push;
+                if (agent.remainingDistance <= agent.stoppingDistance * 2)
+                    push = Vector3.zero;
+            }
         }
         else
         {
+            agent.isStopped = false;
             if (movement != Vector3.zero)  isMove = true;
             float singleStep = moveSpeed * Time.deltaTime * 5;
             Vector3 rotateDirection;
@@ -209,6 +224,9 @@ public class Unit : MonoBehaviour
             Vector3 stepMove = movement.normalized * moveSpeed;
             stepMove.y = 0;
             agent.destination = transform.position + stepMove;
+
+            Debug.Log("move");
+
         }
         movement = Vector3.zero;
     }
@@ -221,7 +239,6 @@ public class Unit : MonoBehaviour
         run = false;
         ChangeState(UnitState.Die);
         dieUnit?.Invoke();
-        //Destroy(ch_controller);
         enabled = false;
 
         //if (doll)
@@ -238,7 +255,6 @@ public class Unit : MonoBehaviour
         //        transform.GetChild(i).gameObject.SetActive(false);
         //    }
         //}
-
     }
 
 

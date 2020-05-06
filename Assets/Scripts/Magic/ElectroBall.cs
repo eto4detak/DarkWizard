@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class ElectroBall : IMagic
 {
-    public SpellInfo info;
     public bool isFind = true;
-
-    public void Setup(SpellInfo p_info)
-    {
-        info = p_info;
-    }
 
     private void FixedUpdate()
     {

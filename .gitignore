@@ -311,6 +311,8 @@ _Builds
 NotificationsSamples.sln.DotSettings
 
 Assets/ExternalAssets/
-Assets/TextMesh Pro/
+Assets/TextMesh*Pro/
 Assets/Texture/
 Assets/Mesh/
+Assets/plugins/
+

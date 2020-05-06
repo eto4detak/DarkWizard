@@ -75,6 +75,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d30102c6555ba149813661470f6cfbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  type: 0
+  direction: {x: 0, y: 0, z: 0}
   sphere: {fileID: 8333285992031319724}
 --- !u!1001 &2649066363329154340
 PrefabInstance:
@@ -147,22 +150,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.1
@@ -179,6 +166,34 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
       propertyPath: scalingMode
       value: 1
@@ -202,18 +217,6 @@ PrefabInstance:
     - target: {fileID: 19800002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: InitialModule.startRotationX.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: InitialModule.startRotationY.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19800004, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}
-      propertyPath: scalingMode
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400002, guid: f1fca55934f274a4b9c8fd316d61e964, type: 3}

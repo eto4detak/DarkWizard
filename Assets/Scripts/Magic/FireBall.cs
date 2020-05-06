@@ -9,8 +9,9 @@ public class FireBall : IMagic
     private bool one;
     private float force = 300f;
 
-    public void Setup()
+    public override void Setup(SpellInfo p_info)
     {
+        info = p_info;
         sphere.AddForce(direction  * force, ForceMode.Force);
     }
 
@@ -32,13 +33,13 @@ public class FireBall : IMagic
 
     private Damage CreateDamage(Unit enemy)
     {
-        float force = 2f;
+        float pushForce = 2f;
         Vector3 attackDirection = enemy.transform.position - transform.position;
         Damage dama = new  Damage();
-        dama.damageValue = force;
+        dama.damageValue = damage;
         PushEffect effect = new PushEffect
         {
-            force = (enemy.transform.position - transform.position).normalized * force
+            force = (enemy.transform.position - transform.position).normalized * pushForce
         };
         dama.effects.Add(effect);
         return dama;

@@ -7,10 +7,15 @@ public class AttackTactics : IAITactics
     public float need;
 
     private Unit owner;
+    private List<IMagicSpell> spells = new List<IMagicSpell>();
 
     public AttackTactics(Unit p_ownwer)
     {
         owner = p_ownwer;
+
+        spells.Add(new FireBallSpell());
+        spells.Add(new SwordSpell());
+        spells.Add(new FireWallSpell());
     }
 
     public float CheckNeed()
@@ -23,7 +28,7 @@ public class AttackTactics : IAITactics
 
     public void Control()
     {
-        owner.ApplySpell(new FireBallSpell());
+        owner.ApplySpell(spells[Random.Range(0, spells.Count)]);
     }
 
 }
