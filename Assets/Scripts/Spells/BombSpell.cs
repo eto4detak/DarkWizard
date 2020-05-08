@@ -14,7 +14,7 @@ public class BombSpell : IMagicSpell
     {
         float destroyTime = 10f;
         int bombCount = 4;
-        Bomb prefabBomb = GetPrefab();
+        Bomb prefabBomb = GetPrefab<Bomb>();
         for (int i = 0; i < bombCount; i++)
         {
             Bomb bomb = GameObject.Instantiate(prefabBomb);
@@ -51,11 +51,5 @@ public class BombSpell : IMagicSpell
         } while (badDistance);
 
         return bombPoint;
-    }
-
-
-    public Bomb GetPrefab()
-    {
-        return Resources.Load<Bomb>("Prefabs/Bomb");
     }
 }

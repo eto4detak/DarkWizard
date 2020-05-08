@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b8152aff50fb14abedf9a596b21310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 10
   type: 0
   direction: {x: 0, y: 0, z: 0}
   sphere: {fileID: 2624404593079962441}

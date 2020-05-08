@@ -8,7 +8,15 @@ public class ElectroBall : IMagic
 
     private float speed = 10f;
 
-    private void FixedUpdate()
+
+    public override void Setup(SpellInfo p_info)
+    {
+        info = p_info;
+        transform.position = info.owner.firePoint.transform.position;
+    }
+
+
+    protected void FixedUpdate()
     {
         Vector3 direction;
         if (isFind)
@@ -19,27 +27,43 @@ public class ElectroBall : IMagic
         {
             direction = info.owner.transform.position - transform.position;
         }
-        transform.Translate(direction.normalized * speed * Time.fixedDeltaTime);
+        transform.Translate((direction + Vector3.up).normalized * speed * Time.fixedDeltaTime);
     }
 
-    private void OnTriggerEnter(Collider collider)
+    protected void OnTriggerEnter(Collider collider)
     {
+        float deltaMana = 20f;
         Unit unit = collider.GetComponent<Unit>();
-        
-        if (isFind)
+        if (unit != null)
         {
-            if (unit != null && unit != info.owner)
+            if (isFind)
             {
-                isFind = false;
+                if (unit != info.owner)
+                {
+                    unit.Mana -= deltaMana;
+                    isFind = false;
+                }
+            }
+            else
+            {
+                if (unit == info.owner)
+                {
+                    unit.Mana += deltaMana;
+                    Destroy(gameObject);
+                }
             }
         }
         else
         {
-            if (unit != null && unit == info.owner)
+            IMagic magic = collider.GetComponent<IMagic>();
+            if(magic != null)
             {
                 Destroy(gameObject);
             }
         }
 
     }
+
+
+
 }

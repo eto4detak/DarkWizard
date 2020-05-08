@@ -9,7 +9,9 @@ public abstract class IMagicSpell
 
     public virtual void Apply(SpellInfo info)
     {
-
     }
-
+    public T GetPrefab<T>() where T : MonoBehaviour
+    {
+        return Resources.Load<T>("Prefabs/" + typeof(T));
+    }
 }

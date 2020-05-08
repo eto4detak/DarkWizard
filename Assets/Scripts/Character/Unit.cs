@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,9 @@ public partial class Unit : MonoBehaviour
     public Unit target;
     public UnityEvent dieUnit = new UnityEvent();
     public event Action<Unit> damaged;
+    public Vector3 toTarget;
+
+    [SerializeField] public ParticleSystem psDeath;
 
     private bool isMove;
     private float gravity;
@@ -48,6 +52,7 @@ public partial class Unit : MonoBehaviour
 
     private void FixedUpdate()
     {
+        toTarget = target.transform.position - transform.position;
         ReplenishmentMana();
         MagicZone();
         if (currentSpellTime > 0)
@@ -233,7 +238,19 @@ public partial class Unit : MonoBehaviour
         run = false;
         ChangeState(UnitState.Die);
         dieUnit?.Invoke();
+        StartCoroutine(OnDeathPS(psDeath));
         enabled = false;
+    }
+
+    public IEnumerator OnDeathPS(ParticleSystem psDeath)
+    {
+        float timeDeath = 4f;
+        float delay = 3f;
+
+        yield return new WaitForSeconds(delay);
+        psDeath.gameObject.SetActive(true);
+        psDeath.gameObject.transform.parent = null;
+        Destroy(psDeath.gameObject, timeDeath);
     }
 
 }

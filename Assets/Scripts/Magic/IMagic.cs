@@ -12,7 +12,7 @@ public abstract class IMagic : MonoBehaviour
 
     protected void OnDestroy()
     {
-        if(MagicManager.instanceExists)  MagicManager.instance.UnRegisterMagic(this);
+        if(MagicManager.instanceExists) MagicManager.instance.UnRegisterMagic(this);
     }
 
     public virtual void Setup(SpellInfo p_info)
