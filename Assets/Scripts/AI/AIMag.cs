@@ -14,7 +14,9 @@ public class AIMag : MonoBehaviour
         owner = GetComponent<Unit>();
         tactics.Add(new AttackTactics(owner));
         tactics.Add(new EvasionTactics(owner));
-        tactics.Add( new SpellEvasionTactics(owner) );
+        tactics.Add(new SpellEvasionTactics(owner));
+        tactics.Add(new LittleManaTactics(owner));
+        tactics.Add(new DominanceTactics(owner));
     }
 
     private void FixedUpdate()

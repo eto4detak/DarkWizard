@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class FireBallSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public FireBallSpell()
+    {
+        mana = 10f;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 5f;
         FireBall prefabBall = GetPrefab();

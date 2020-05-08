@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class CallDemonSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public CallDemonSpell()
+    {
+        mana = 10f;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 20f;
         float maxDistance = 1f;

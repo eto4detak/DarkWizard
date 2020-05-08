@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FrozenBallSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 5f;
         float force = 300f;

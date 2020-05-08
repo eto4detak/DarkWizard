@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IMagicSpell
+public abstract class IMagicSpell
 {
-    void Apply(SpellInfo info);
+    public float mana { get; set; } = 10f;
+    public MagicType type = MagicType.attack;
+
+    public virtual void Apply(SpellInfo info)
+    {
+
+    }
+
 }

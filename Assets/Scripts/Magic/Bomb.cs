@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bomb : IMagic
 {
-
+    public ParticleSystem explosion;
     protected void OnTriggerEnter(Collider collider)
     {
         
@@ -12,8 +12,11 @@ public class Bomb : IMagic
         if (body)
         {
             
-            body.TakeDamage(new Damage {attackDirection = body.transform.position - transform.position });
+            body.TakeDamage(new Damage {damageValue = damage});
             Destroy(gameObject);
+            explosion.transform.parent = null;
+            explosion.gameObject.SetActive(true);
+            Destroy(explosion.gameObject, 2f);
         }
     }
 

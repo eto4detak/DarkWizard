@@ -36,7 +36,7 @@ public class KeyController : Singleton<KeyController>
         {
             owner.ApplySpell(new BombSpell());
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Space))
         {
             owner.ApplySpell(new FireWallSpell());
         }
@@ -44,7 +44,7 @@ public class KeyController : Singleton<KeyController>
         {
             owner.ApplySpell(new RainSpell());
         }
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V) )
         {
             owner.ApplySpell(new Dispell());
         }

@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class MagicTeleportSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public MagicTeleportSpell()
+    {
+        type = MagicType.protection;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float time = 4f;
         float teleportDistance = 5f;

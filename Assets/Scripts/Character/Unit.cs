@@ -1,46 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
-public class Unit : MonoBehaviour
+public partial class Unit : MonoBehaviour
 {
-    public UnitState state = UnitState.Idle;
     public bool run;
+    public bool isMagicZone;
     public bool isDie;
-    public float health;
-    public Animator anim;
-    public Collider body;
-    public UnityEvent dieUnit = new UnityEvent();
-    public GameObject sword;
-    public GameObject doll;
-    public GameObject swordCollider;
-    public float moveSpeed = 1;
     public bool canDamage;
+    public float currentHealth;
+    public float moveSpeed = 1;
+    public UnitState state = UnitState.Idle;
+    public Animator anim;
     public GameObject firePoint;
     public Unit target;
+    public UnityEvent dieUnit = new UnityEvent();
+    public event Action<Unit> damaged;
 
     private bool isMove;
-    private float spellTime = 1f;
-    private float currentSpellTime;
     private float gravity;
-    private Vector3 push;
     private float currentPushTime;
+    private UnitState attackType;
+    private Vector3 push;
     private Vector3 direction;
     private Vector3 movement = Vector3.zero;
-    private UnitState attackType;
     private Rigidbody[] dollBodys;
     private NavMeshAgent agent;
-    
+
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        spells.Add(new BombSpell());
+        spells.Add(new Dispell());
+        spells.Add(new ElectroSpell());
+        spells.Add(new FireBallSpell());
+        spells.Add(new FireWallSpell());
+        spells.Add(new MagicShieldSpell());
+        spells.Add(new MagicTeleportSpell());
+        spells.Add(new PhobiaBallSpell());
+        spells.Add(new RainSpell());
+        spells.Add(new SwordSpell());
     }
 
     private void FixedUpdate()
     {
-        if(currentSpellTime > 0)
+        ReplenishmentMana();
+        MagicZone();
+        if (currentSpellTime > 0)
         {
             currentSpellTime -= Time.fixedDeltaTime;
         }
@@ -113,19 +123,6 @@ public class Unit : MonoBehaviour
         return movement;
     }
 
-    public void ApplySpell(IMagicSpell spell)
-    {
-        if (currentSpellTime > 0) return;
-
-        ChangeState(UnitState.Spell);
-        SpellInfo sInfo = new SpellInfo()
-        {
-            owner = this,
-        };
-        spell.Apply(sInfo);
-        currentSpellTime = spellTime;
-    }
-
     public void Attack(UnitState attack)
     {
         attackType = (UnitState)Random.Range((int)UnitState.AttackSlash, (int)UnitState.AttackSlash2 + 1);
@@ -139,9 +136,10 @@ public class Unit : MonoBehaviour
 
     public void Teleport(Vector3 toPoint)
     {
-        //ch_controller.enabled = false;
-        //transform.position = toPoint;
-        //ch_controller.enabled = true;
+        agent.enabled = false;
+        transform.position = toPoint;
+        agent.enabled = true;
+        agent.destination = toPoint;
     }
 
     public void Stop()
@@ -170,19 +168,18 @@ public class Unit : MonoBehaviour
         currentPushTime = 0.5f;
     }
 
-
     public void TakeDamage(Damage damage)
     {
-        health -= damage.damageValue;
+        currentHealth -= damage.damageValue;
         ChangeState(UnitState.Hurt);
         ApplyEffects(damage.effects);
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
-            health = 0;
+            currentHealth = 0;
             OnDie(damage);
         }
+        damaged?.Invoke(this);
     }
-
 
     private void ApplyEffects(List<IUnitEffect> effects)
     {
@@ -198,7 +195,6 @@ public class Unit : MonoBehaviour
         if(currentPushTime > 0)
         {
             agent.isStopped = false;
-            Debug.Log("push");
             currentPushTime -= Time.fixedDeltaTime;
             if(currentPushTime <= 0)
             {
@@ -225,8 +221,6 @@ public class Unit : MonoBehaviour
             stepMove.y = 0;
             agent.destination = transform.position + stepMove;
 
-            Debug.Log("move");
-
         }
         movement = Vector3.zero;
     }
@@ -240,30 +234,6 @@ public class Unit : MonoBehaviour
         ChangeState(UnitState.Die);
         dieUnit?.Invoke();
         enabled = false;
-
-        //if (doll)
-        //{
-        //    //float force = 50f;
-        //    //doll.transform.parent = null;
-        //    //doll.gameObject.SetActive(true);
-        //    for (int i = 0; i < dollBodys.Length; i++)
-        //    {
-        //        dollBodys[i].AddForce((Vector3.up + damage.attackDirection).normalized * force, ForceMode.Impulse);
-        //    }
-        //    for (int i = 0; i < transform.childCount; i++)
-        //    {
-        //        transform.GetChild(i).gameObject.SetActive(false);
-        //    }
-        //}
     }
-
-
-    private void GamingGravity()
-    {
-        //if (!ch_controller.isGrounded) gravity -= Time.fixedDeltaTime / 4;
-        //else gravity = 0;
-    }
-
-
 
 }

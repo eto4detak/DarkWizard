@@ -14,7 +14,8 @@ public class SpellEvasionTactics : IAITactics
     private Unit owner;
     private IMagic dangerSpell;
     private Vector3 evasionDirect;
-
+    private bool needNewDirect;
+    private IMagic oldDangerSpell;
     public SpellEvasionTactics(Unit p_ownwer)
     {
         owner = p_ownwer;
@@ -22,8 +23,9 @@ public class SpellEvasionTactics : IAITactics
 
     public void Control()
     {
-        if (leftDirection == 0)
+        if (needNewDirect)
         {
+            needNewDirect = false;
             evasionDirect = Vector3.Cross(dangerSpell.direction, Vector3.up);
 
             if (evasionDirect == Vector3.zero)
@@ -35,8 +37,6 @@ public class SpellEvasionTactics : IAITactics
             evasionDirect = evasionDirect * leftDirection;
 
         }
-        Debug.Log("evasionDirect " + evasionDirect);
-
         owner.Move(evasionDirect);
     }
 
@@ -46,28 +46,46 @@ public class SpellEvasionTactics : IAITactics
         need = -1;
         float dangerAngle = 30f;
         float dangerDistance = 8f;
+        float defenceDistance = 2f;
         List<IMagic> magics = MagicManager.instance.magics;
         
         for (int i = 0; i < magics.Count; i++)
         {
-
             float magicDistance = (magics[i].transform.position - owner.transform.position).magnitude;
-            if (magics[i].type != MagicType.attack) continue;
             if (magicDistance > dangerDistance) continue;
-
-            Vector3 dangerDirection = owner.transform.position - magics[i].transform.position;
-            dangerDirection.y = magics[i].direction.y;
-            float attackAngle = Vector3.Angle(dangerDirection, magics[i].direction);
-            if(attackAngle < dangerAngle)
+            switch (magics[i].type)
             {
-                dangerSpell = magics[i];
-                need = magics[i].damage;
+                case MagicType.attack:
+                    {
+                        Vector3 dangerDirection = owner.transform.position - magics[i].transform.position;
+                        dangerDirection.y = magics[i].direction.y;
+                        float attackAngle = Vector3.Angle(dangerDirection, magics[i].direction);
+                        if (attackAngle < dangerAngle)
+                        {
+                            dangerSpell = magics[i];
+                            need = magics[i].damage;
+                        }
+                    }
+                    break;
+                case MagicType.protection:
+                    {
+                        float dist = (owner.transform.position - magics[i].transform.position).magnitude;
+                        if (dist < defenceDistance)
+                        {
+                            dangerSpell = magics[i];
+                            need = magics[i].damage;
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
         }
-        if(need == -1)
+        if(dangerSpell != null && oldDangerSpell != dangerSpell)
         {
-            leftDirection = 0;
+            needNewDirect = true;
         }
+        oldDangerSpell = dangerSpell;
         return need;
     }
 }

@@ -6,9 +6,10 @@ public class ElectroBall : IMagic
 {
     public bool isFind = true;
 
+    private float speed = 10f;
+
     private void FixedUpdate()
     {
-        float speed = 10f;
         Vector3 direction;
         if (isFind)
         {

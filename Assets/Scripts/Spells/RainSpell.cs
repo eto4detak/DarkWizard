@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class RainSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public RainSpell()
+    {
+        type = MagicType.protection;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float time = 20f;
         Rain prefab = GetPrefab();

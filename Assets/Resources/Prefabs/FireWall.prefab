@@ -164,6 +164,22 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 19875088, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: scalingMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 110476, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 172444, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 180850, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 19867512, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
       propertyPath: InitialModule.startRotationX.minMaxState
       value: 3
@@ -179,6 +195,14 @@ PrefabInstance:
     - target: {fileID: 19879026, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
       propertyPath: InitialModule.startRotationY.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 10869060, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: m_Range
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 10869060, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}
+      propertyPath: m_Intensity
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21eb15f5f71288a49ad65b6b85a9c1dc, type: 3}

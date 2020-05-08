@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class MagicShieldSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public MagicShieldSpell()
+    {
+        type = MagicType.protection;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 15f;
         MagicShield prefabBall = GetPrefab();

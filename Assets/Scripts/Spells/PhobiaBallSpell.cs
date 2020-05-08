@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PhobiaBallSpell : IMagicSpell
 {
-
-    public void Apply(SpellInfo info)
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 5f;
         PhobiaBall prefabBall = GetPrefab();

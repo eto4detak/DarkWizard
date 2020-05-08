@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 3;
         MagicSword prefabBall = GetPrefab();

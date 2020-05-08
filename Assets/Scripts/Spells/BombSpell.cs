@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class BombSpell : IMagicSpell
 {
-    public void Apply(SpellInfo info)
+
+    public BombSpell()
+    {
+        type = MagicType.protection;
+    }
+
+    public override void Apply(SpellInfo info)
     {
         float destroyTime = 10f;
         int bombCount = 4;
