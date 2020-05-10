@@ -6,7 +6,6 @@ public enum UnitState
 {
     Idle,
     Run,
-    NoRun,
     Hurt,
     Die,
     Victory,

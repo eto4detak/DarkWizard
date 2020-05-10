@@ -13,12 +13,14 @@ public class PhobiaBall : IMagic
     {
         info = p_spell;
         float distance = Random.Range(5f, 7f);
+        float up = 5f;
 
         Vector3 startPoint = info.owner.target.transform.position  + info.owner.toTarget.normalized * distance
-            + new Vector3(Random.Range(0f, 1f), 0, Random.Range(0f, 1f)).normalized  * distance/3;
+            + new Vector3(Random.Range(0f, 1f), 0, Random.Range(0f, 1f)).normalized  * distance/3 + Vector3.up * up;
         transform.position = startPoint;
-        Vector3 forceDirect = info.owner.transform.position - transform.position;
-        sphere.AddForce(startPoint.normalized * force, ForceMode.Force);
+        Vector3 forceDirect = info.owner.target.unitCenter - transform.position;
+
+        sphere.AddForce(forceDirect.normalized * force, ForceMode.Force);
     }
 
 

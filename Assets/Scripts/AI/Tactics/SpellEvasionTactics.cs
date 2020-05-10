@@ -16,6 +16,7 @@ public class SpellEvasionTactics : IAITactics
     private Vector3 evasionDirect;
     private bool needNewDirect;
     private IMagic oldDangerSpell;
+
     public SpellEvasionTactics(Unit p_ownwer)
     {
         owner = p_ownwer;

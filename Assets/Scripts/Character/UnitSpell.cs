@@ -13,6 +13,13 @@ public partial class Unit : MonoBehaviour
     protected float currentSpellTime;
     protected List<IMagicSpell> spells = new List<IMagicSpell>();
 
+
+    public List<IMagicSpell> GetSpells()
+    {
+        return spells;
+    }
+
+
     public float Mana
     {
         get => currentMana;
@@ -35,10 +42,12 @@ public partial class Unit : MonoBehaviour
     public void ApplySpell(IMagicSpell spell)
     {
         if (currentSpellTime > 0) return;
-        if (ManaToSpell(spell))
-        {
-            CastSpell(spell);
-        }
+        CastSpell(spell);
+    }
+    public void ApplySpell(int spell)
+    {
+        if (currentSpellTime > 0) return;
+        CastSpell(spells[spell]);
     }
 
     protected void MagicZone()
@@ -75,14 +84,16 @@ public partial class Unit : MonoBehaviour
 
     protected void CastSpell(IMagicSpell spell)
     {
-        Debug.Log("spell " + spell);
-        ChangeState(UnitState.Spell);
-        SpellInfo sInfo = new SpellInfo()
+        if (ManaToSpell(spell))
         {
-            owner = this,
-        };
+            ChangeState(UnitState.Spell);
+            SpellInfo sInfo = new SpellInfo()
+            {
+                owner = this,
+            };
 
-        spell.Apply(sInfo);
-        currentSpellTime = spellTime;
+            spell.Apply(sInfo);
+            currentSpellTime = spellTime;
+        }
     }
 }

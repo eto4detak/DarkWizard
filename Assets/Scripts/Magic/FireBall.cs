@@ -37,7 +37,7 @@ public class FireBall : IMagic
         Vector3 attackDirection = enemy.transform.position - transform.position;
         Damage dama = new  Damage();
         dama.damageValue = damage;
-        PushEffect effect = new PushEffect
+        PushEffect effect = new PushEffect(enemy)
         {
             force = (enemy.transform.position - transform.position).normalized * pushForce
         };

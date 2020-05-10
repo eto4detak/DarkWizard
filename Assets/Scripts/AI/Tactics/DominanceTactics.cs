@@ -19,7 +19,12 @@ public class DominanceTactics : IAITactics
 
     public void Control()
     {
-        owner.Move(owner.target.transform.position - owner.transform.position);
+        float optimaDist = 2f;
+        float targetDist = owner.toTarget.magnitude;
+        if(targetDist > optimaDist)
+        {
+            owner.Move(owner.target.transform.position - owner.transform.position);
+        }
         owner.ApplyAttackSpell();
     }
 
