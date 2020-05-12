@@ -11,11 +11,10 @@ public class ElectroSpell : IMagicSpell
 
     public override void Apply(SpellInfo info)
     {
+        if (info.owner.target == null) return;
         float destroyTime = 10f;
-        ElectroBall prefabBall = GetPrefab<ElectroBall>();
 
-        ElectroBall ball = GameObject.Instantiate(prefabBall);
-        MagicManager.instance.RegisterMagic(ball);
+        ElectroBall ball = CreateMagic<ElectroBall>(Vector3.zero);
         ball.Setup(info);
         GameObject.Destroy(ball.gameObject, destroyTime);
     }

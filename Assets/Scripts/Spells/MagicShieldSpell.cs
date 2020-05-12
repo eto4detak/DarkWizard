@@ -14,8 +14,7 @@ public class MagicShieldSpell : IMagicSpell
         float destroyTime = 15f;
         MagicShield prefabBall = GetPrefab();
 
-        MagicShield shield = GameObject.Instantiate(prefabBall, info.owner.transform.position, Quaternion.identity);
-        MagicManager.instance.RegisterMagic(shield);
+        MagicShield shield = CreateMagic<MagicShield>(Vector3.zero);
         shield.transform.parent = info.owner.transform;
         GameObject.Destroy(shield.gameObject, destroyTime);
     }

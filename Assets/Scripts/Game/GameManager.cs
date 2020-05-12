@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public bool continueGame;
 
     private int levelNumber = 0;
-    
+
     #region Singleton
     static protected GameManager s_Instance;
     static public GameManager instance { get { return s_Instance; } }
@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SaveLoad.GetInstance().Load();
+
     }
 
     public void StartLevel()

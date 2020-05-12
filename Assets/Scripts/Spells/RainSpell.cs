@@ -15,8 +15,7 @@ public class RainSpell : IMagicSpell
         Rain prefab = GetPrefab();
         Vector3 point = info.owner.transform.position;
         point.y = 0;
-        Rain rain = GameObject.Instantiate(prefab, point, Quaternion.identity);
-        MagicManager.instance.RegisterMagic(rain);
+        Rain rain = CreateMagic<Rain>(Vector3.zero);
         GameObject.Destroy(rain.gameObject, time);
     }
 

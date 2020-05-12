@@ -14,15 +14,12 @@ public class BombSpell : IMagicSpell
     {
         float destroyTime = 10f;
         int bombCount = 4;
-        Bomb prefabBomb = GetPrefab<Bomb>();
         for (int i = 0; i < bombCount; i++)
         {
-            Bomb bomb = GameObject.Instantiate(prefabBomb);
-            MagicManager.instance.RegisterMagic(bomb);
             Vector3? position = FindArea(info.owner.transform.position, info.owner.target.transform.position);
             if(position != null)
             {
-                bomb.transform.position = position.Value;
+                Bomb bomb = CreateMagic<Bomb>(position.Value, Quaternion.identity);
                 GameObject.Destroy(bomb.gameObject, destroyTime);
             }
         }
@@ -30,10 +27,6 @@ public class BombSpell : IMagicSpell
 
     private Vector3? FindArea(Vector3 startPoint, Vector3 finishPoint)
     {
-        float minX = Mathf.Min(startPoint.x, finishPoint.x);
-        float minZ = Mathf.Min(startPoint.z, finishPoint.z);
-        float maxX = Mathf.Min(startPoint.x, finishPoint.x);
-        float maxZ = Mathf.Min(startPoint.z, finishPoint.z);
         float offest = 2f;
         Vector3 halfToFinish= (finishPoint - startPoint) / 2;
         Vector3 center = startPoint + halfToFinish;
@@ -41,6 +34,7 @@ public class BombSpell : IMagicSpell
         Vector3 bombPoint;
         int max = 100;
         int count = 0;
+
         do
         {
             if (count > max) return null;

@@ -6,14 +6,21 @@ public class KeyController : Singleton<KeyController>
 {
     private Unit owner;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    owner = GetComponent<Unit>();
+    //}
+
+
+    public void Setup(Unit p_owner)
     {
-        
-        owner = GetComponent<Unit>();
+        owner = p_owner;
     }
-    
+
+
     void FixedUpdate()
     {
+        if (owner == null) return;
 
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         if(direction.sqrMagnitude != 0)

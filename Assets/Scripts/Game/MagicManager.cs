@@ -2,20 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
+
 
 public class MagicManager : Singleton<MagicManager>
 {
-    public List<IMagic> magics = new List<IMagic>();
+    public List<IMagic> magicsInScene = new List<IMagic>();
+    public List<IMagic> allMagicPrefabs = new List<IMagic>();
+
+
+    protected void Start()
+    {
+    }
+
 
     public void RegisterMagic(IMagic magic)
     {
-        magics.Add(magic);
+        magicsInScene.Add(magic);
     }
 
-    public void UnRegisterMagic(IMagic magic)
+    public void UnregisterMagic(IMagic magic)
     {
-        magics.Remove(magic);
+        magicsInScene.Remove(magic);
+        
     }
+
+
 
 }

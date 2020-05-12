@@ -48,7 +48,7 @@ public partial class Unit : MonoBehaviour
         run = false;
         ChangeState(UnitState.Die);
         dieUnit?.Invoke();
-        StartCoroutine(OnDeathPS(psDeath));
+        if(psDeath != null) StartCoroutine(OnDeathPS(psDeath));
         GetComponent<Collider>().enabled = false;
         enabled = false;
     }

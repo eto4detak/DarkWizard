@@ -16,6 +16,6 @@ public class ApplySpell : MonoBehaviour
 
     private void OnBtnClick()
     {
-        UnitManager.instance.hero.ApplySpell(number);
+        //UnitManager.instance.hero.ApplySpell(number);
     }
 }

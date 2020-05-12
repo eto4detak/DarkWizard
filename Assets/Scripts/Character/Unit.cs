@@ -19,6 +19,7 @@ public partial class Unit : MonoBehaviour
     public GameObject firePoint;
     public Unit target;
     public UnityEvent dieUnit = new UnityEvent();
+    public UnityEvent startUnit = new UnityEvent();
     public event Action<Unit> damaged;
     public Vector3 toTarget;
     public Vector3 unitCenter;
@@ -32,12 +33,14 @@ public partial class Unit : MonoBehaviour
     private Vector3 movement = Vector3.zero;
     private Rigidbody[] dollBodys;
     private NavMeshAgent agent;
+    private Rigidbody rbody;
+    private Vector3 oldPosition;
     
-
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        rbody = GetComponent<Rigidbody>();
+
         spells.Add(new BombSpell());
         spells.Add(new Dispell());
         spells.Add(new ElectroSpell());
@@ -50,10 +53,25 @@ public partial class Unit : MonoBehaviour
         spells.Add(new SwordSpell());
     }
 
+
+    private void Start()
+    {
+        UnitManager.instance.AddUnit(this);
+    }
+
+
     private void FixedUpdate()
     {
+        if (target == null)
+        {
+            target = UnitManager.instance.units.Find(x => x != this);
+            
+        }
         unitCenter = transform.position + Vector3.up;
-        toTarget = target.transform.position - transform.position;
+        if (target)
+        {
+            toTarget = target.transform.position - transform.position;
+        }
         ReplenishmentMana();
         MagicZone();
         currentSpellTime -= Time.fixedDeltaTime;
@@ -63,6 +81,7 @@ public partial class Unit : MonoBehaviour
         noControl = false;
         isMove = false;
         movement = Vector3.zero;
+        oldPosition = transform.position;
     }
 
 
@@ -175,22 +194,38 @@ public partial class Unit : MonoBehaviour
         {
             return;
         }
-
+        float minDist = 0.001f;
         movement.y = 0;
+        float deltaMve = (oldPosition - transform.position).magnitude;
+        if (deltaMve > minDist) isMove = true;
         agent.isStopped = false;
-        if (movement != Vector3.zero)  isMove = true;
-        float singleStep = moveSpeed * Time.deltaTime * 5;
+
+        RotateUnit();
+        StepUnit();
+        if (deltaMve > minDist) ChangeState(UnitState.Run);
+        else ChangeState(UnitState.Idle);
+    }
+
+
+    private void RotateUnit()
+    {
         Vector3 rotateDirection;
-        if (movement.sqrMagnitude > 0.0001) rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
+        float singleStep = moveSpeed * Time.deltaTime * 5;
+
+        if (isMove) rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
         else rotateDirection = Vector3.RotateTowards(transform.forward, toTarget, singleStep, 0.0f);
         rotateDirection.y = 0;
         transform.rotation = Quaternion.LookRotation(rotateDirection);
+    }
+
+
+    private void StepUnit()
+    {
         Vector3 stepMove = movement.normalized * moveSpeed;
         stepMove.y = 0;
         agent.destination = transform.position + stepMove;
-        if (isMove) ChangeState(UnitState.Run);
-        else ChangeState(UnitState.Idle);
-
+        rbody.velocity = Vector3.zero;
     }
+
 
 }

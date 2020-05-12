@@ -9,23 +9,21 @@ using UnityEngine.SceneManagement;
 public class UnitManager : Singleton<UnitManager>
 {
     public Unit hero;
-    public Unit boss;
     public List<Unit> enemies;
-    public List<Unit> units;
-
+    public List<Unit> units = new List<Unit>();
     public UnityEvent dieHero = new UnityEvent();
+    public List<PlayerBaseUI> playerPanels = new List<PlayerBaseUI>();
 
-    private void Start()
+    public void AddUnit(Unit added)
     {
-        Setup();
-       // StopUnit();
+        units.Add(added);
+        PlayerBaseUI emptyPanel = playerPanels.Find(x => x.origin == null);
+        if(emptyPanel != null)
+        {
+            emptyPanel.Setup(added);
+        }
     }
 
-
-    public void Setup()
-    {
-        units = FindObjectsOfTypeAll<Unit>();
-    }
 
     public static List<T> FindObjectsOfTypeAll<T>()
     {
@@ -60,7 +58,6 @@ public class UnitManager : Singleton<UnitManager>
             if (ai) ai.target = hero;
         }
     }
-
 
     public void SetVitoryEnemies()
     {

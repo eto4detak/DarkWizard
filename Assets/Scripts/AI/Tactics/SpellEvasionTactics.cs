@@ -48,7 +48,7 @@ public class SpellEvasionTactics : IAITactics
         float dangerAngle = 30f;
         float dangerDistance = 8f;
         float defenceDistance = 2f;
-        List<IMagic> magics = MagicManager.instance.magics;
+        List<IMagic> magics = MagicManager.instance.magicsInScene;
         
         for (int i = 0; i < magics.Count; i++)
         {

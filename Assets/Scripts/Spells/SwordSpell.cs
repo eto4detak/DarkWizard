@@ -7,10 +7,8 @@ public class SwordSpell : IMagicSpell
     public override void Apply(SpellInfo info)
     {
         float destroyTime = 3;
-        MagicSword prefabBall = GetPrefab();
-        MagicSword sword = GameObject.Instantiate(prefabBall, info.owner.target.transform.position, Quaternion.identity);
+        MagicSword sword = CreateMagic<MagicSword>(info.owner.target.transform.position);
         sword.Setup(info);
-        MagicManager.instance.RegisterMagic(sword);
         GameObject.Destroy(sword.gameObject, destroyTime);
     }
 

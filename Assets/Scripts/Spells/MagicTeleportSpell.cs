@@ -26,6 +26,6 @@ public class MagicTeleportSpell : IMagicSpell
 
     public GameObject GetPrefab()
     {
-        return Resources.Load<GameObject>("Prefabs/Teleport");
+        return Resources.Load<GameObject>("Magic/Teleport");
     }
 }

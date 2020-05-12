@@ -8,10 +8,8 @@ public class PhobiaBallSpell : IMagicSpell
     public override void Apply(SpellInfo info)
     {
         float destroyTime = 10f;
-        PhobiaBall prefabBall = GetPrefab<PhobiaBall>();
 
-        PhobiaBall ball = GameObject.Instantiate(prefabBall);
-        MagicManager.instance.RegisterMagic(ball);
+        PhobiaBall ball = CreateMagic<PhobiaBall>(Vector3.zero);
         ball.Setup(info);
         GameObject.Destroy(ball.gameObject, destroyTime);
     }

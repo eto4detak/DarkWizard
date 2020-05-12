@@ -14,9 +14,11 @@ public class CallDemonSpell : IMagicSpell
         float destroyTime = 20f;
         float maxDistance = 1f;
         CallDemon prefabBall = GetPrefab();
-        CallDemon demon = GameObject.Instantiate(prefabBall);
+        
+
+        Vector3 position = info.owner.transform.position + info.owner.transform.forward.normalized * maxDistance;
+        CallDemon demon = CreateMagic<CallDemon>(position);
         demon.Setup(info);
-        demon.transform.position = info.owner.transform.position + info.owner.transform.forward.normalized * maxDistance;
         GameObject.Destroy(demon.gameObject, destroyTime);
     }
 

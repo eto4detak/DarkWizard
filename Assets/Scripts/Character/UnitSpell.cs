@@ -44,10 +44,13 @@ public partial class Unit : MonoBehaviour
         if (currentSpellTime > 0) return;
         CastSpell(spell);
     }
-    public void ApplySpell(int spell)
+    public void ApplySpell(int spellNumber)
     {
         if (currentSpellTime > 0) return;
-        CastSpell(spells[spell]);
+        if(spells.Count < spellNumber)
+        {
+            CastSpell(spells[spellNumber]);
+        }
     }
 
     protected void MagicZone()

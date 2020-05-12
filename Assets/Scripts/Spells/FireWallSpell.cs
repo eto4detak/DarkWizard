@@ -11,6 +11,7 @@ public class FireWallSpell : IMagicSpell
 
     public override void Apply(SpellInfo info)
     {
+        if (info.owner.target == null) return;
         float maxDistance = 5f;
         float radiusWall = 1f;
         Vector3 direction = (info.owner.target.transform.position - info.owner.transform.position).normalized;
@@ -29,10 +30,9 @@ public class FireWallSpell : IMagicSpell
 
         if(oldWall == null)
         {
-            FireWall prefabBall = GetPrefab();
-            FireWall wall = GameObject.Instantiate(prefabBall);
-            MagicManager.instance.RegisterMagic(wall);
-            wall.transform.position = info.owner.transform.position + direction * maxDistance;
+            Vector3 position = info.owner.transform.position + direction * maxDistance;
+
+            FireWall wall = CreateMagic<FireWall>(position);
             wall.transform.LookAt(info.owner.transform);
         }
         else

@@ -34,6 +34,7 @@ public class FireBall : IMagic
     private Damage CreateDamage(Unit enemy)
     {
         float pushForce = 2f;
+        
         Vector3 attackDirection = enemy.transform.position - transform.position;
         Damage dama = new  Damage();
         dama.damageValue = damage;
@@ -44,4 +45,6 @@ public class FireBall : IMagic
         dama.effects.Add(effect);
         return dama;
     }
+
+
 }
