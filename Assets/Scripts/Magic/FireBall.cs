@@ -1,33 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using UnityEngine.SceneManagement;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 public class FireBall : IMagic
 {
-    public Rigidbody sphere;
-
-    private bool one;
-    private float force = 300f;
+    private bool once;
+    private float speed = 10f;
+    private PhotonView photonView;
 
     public override void Setup(SpellInfo p_info)
     {
         info = p_info;
-        sphere.AddForce(direction  * force, ForceMode.Force);
+        lifetime = 10f;
+    }
+
+    protected void Start()
+    {
+
+        Debug.Log("Start fire " );
+
+        photonView = GetComponent<PhotonView>();
+        Invoke("Die", lifetime);
+    }
+
+
+    public void FixedUpdate()
+    {
+        transform.position = transform.position + direction.normalized * speed * Time.deltaTime;
     }
 
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (one) return;
+        if (once) return;
+        if (!PhotonNetwork.IsMasterClient) return;
         Unit enemy = collider.GetComponent<Unit>();
         if (enemy)
         {
-            one = true;
+            once = true;
             float distance = 10000;
-            Destroy(sphere);
+            float fix = 2f;
+
             enemy.TakeDamage(CreateDamage(enemy));
             transform.position = transform.position + transform.forward * distance;
-            Destroy(gameObject, 2f);
+            Invoke("Die", fix);
         }
     }
 
@@ -40,10 +60,20 @@ public class FireBall : IMagic
         dama.damageValue = damage;
         PushEffect effect = new PushEffect(enemy)
         {
-            force = (enemy.transform.position - transform.position).normalized * pushForce
+           // force = (enemy.transform.position - transform.position).normalized * pushForce
         };
         dama.effects.Add(effect);
         return dama;
+    }
+
+
+    private void Die()
+    {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
+        PhotonNetwork.Destroy(photonView);
     }
 
 

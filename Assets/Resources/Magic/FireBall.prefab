@@ -13818,7 +13818,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   direction: {x: 0, y: 0, z: 0}
-  sphere: {fileID: 4672232166772653158}
 --- !u!114 &114732764823857396
 MonoBehaviour:
   m_ObjectHideFlags: 0

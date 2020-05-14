@@ -63,7 +63,7 @@ Transform:
   m_LocalPosition: {x: -5.48, y: 0, z: -5.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5333104090954734909}
+  - {fileID: 625848324857534887}
   - {fileID: 4545041111989280715}
   - {fileID: 7820399726512656707}
   m_Father: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
       m_Calls: []
   toTarget: {x: 0, y: 0, z: 0}
   unitCenter: {x: 0, y: 0, z: 0}
-  psDeath: {fileID: 5333104090954734638}
+  psDeath: {fileID: 625848324871691495}
   currentMana: 100
   maxMana: 200
 --- !u!136 &9218386260397432794
@@ -706,13 +706,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac82ca980277b174093099df5d628de9, type: 3}
---- !u!4 &5333104090954734909 stripped
+--- !u!4 &625848324857534887 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4804646282132062422, guid: ac82ca980277b174093099df5d628de9,
     type: 3}
   m_PrefabInstance: {fileID: 5333104090954733937}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &5333104090954734638 stripped
+--- !u!198 &625848324871691495 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 4804646282113713558, guid: ac82ca980277b174093099df5d628de9,
     type: 3}

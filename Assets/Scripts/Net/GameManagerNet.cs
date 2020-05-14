@@ -10,7 +10,13 @@ using System;
 public class GameManagerNet : MonoBehaviourPunCallbacks
 {
     public GameObject playerPrefab;
-    public void Start()
+
+    private void Awake()
+    {
+        Destroy(this);
+    }
+
+    private void Start()
     {
         StartClients();
 

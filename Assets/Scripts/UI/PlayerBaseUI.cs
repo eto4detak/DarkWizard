@@ -12,46 +12,53 @@ public class PlayerBaseUI : MonoBehaviour
     public TextMeshProUGUI mana;
     public Unit origin;
 
-    protected virtual void Start()
-    {
-
-    }
-
     public void Setup(Unit character)
     {
         if(origin != null)
         {
-            origin.damaged -= OnBaseDamaged;
-            origin.changeMana -= OnChangedMana;
+            //origin.damaged -= OnBaseDamaged;
+            //origin.changeMana -= OnChangedMana;
         }
 
         origin = character;
         userName.text = origin.name;
-        origin.damaged += OnBaseDamaged;
-        origin.changeMana += OnChangedMana;
-        UpdateDisplay(origin);
+        //origin.damaged += OnBaseDamaged;
+        //origin.changeMana += OnChangedMana;
+        UpdateDisplay();
+    }
+
+
+    public void Update()
+    {
+        UpdateDisplay();
     }
 
 
     protected virtual void OnBaseDamaged(Unit info)
     {
-        UpdateDisplay(info);
+        UpdateDisplay();
     }
 
-    protected void UpdateDisplay(Unit info)
+    protected void UpdateDisplay()
     {
-        float currentHealth = info.currentHealth;
+        if (origin == null) return;
+
+        int currentHealth = (int)origin.currentHealth;
         health.text = currentHealth.ToString(CultureInfo.InvariantCulture);
+
+        int currentMana = (int)origin.currentMana;
+        mana.text = currentMana.ToString(CultureInfo.InvariantCulture);
     }
 
     protected virtual void OnChangedMana(Unit info)
     {
-        UpdateDisplayMana(info);
+        UpdateDisplayMana();
     }
 
-    protected void UpdateDisplayMana(Unit info)
+    protected void UpdateDisplayMana()
     {
-        int mana = (int)info.currentMana;
-        this.mana.text = mana.ToString(CultureInfo.InvariantCulture);
+        //if (origin == null) return; 
+        //int mana = (int)origin.currentMana;
+        //mana = mana.ToString(CultureInfo.InvariantCulture);
     }
 }

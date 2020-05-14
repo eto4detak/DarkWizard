@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public partial class Unit : MonoBehaviour
+public partial class Unit : MonoBehaviour, IPunObservable
 {
     public bool run;
     public bool isMagicZone;
@@ -227,5 +228,15 @@ public partial class Unit : MonoBehaviour
         rbody.velocity = Vector3.zero;
     }
 
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(currentHealth);
+        }
+        else
+        {
+            currentHealth = (float)stream.ReceiveNext();
+        }
+    }
 }
