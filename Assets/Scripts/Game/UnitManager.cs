@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class UnitManager : Singleton<UnitManager>
 {
+    public Unit unitPrefab;
     public Unit hero;
     public List<Unit> enemies;
     public List<Unit> units = new List<Unit>();
@@ -54,9 +55,13 @@ public class UnitManager : Singleton<UnitManager>
 
         for (int i = 0; i < units.Count; i++)
         {
-            AIAttacker ai = units[i].GetComponent<AIAttacker>();
-            if (ai) ai.target = hero;
+            AIMag ai = units[i].GetComponent<AIMag>();
+            if (ai) ai.enabled = true;
+
+            KeyController keyC = units[i].GetComponent<KeyController>();
+            if (keyC) keyC.enabled = true;
         }
+
     }
 
     public void SetVitoryEnemies()

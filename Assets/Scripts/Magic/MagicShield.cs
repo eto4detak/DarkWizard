@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class MagicShield : IMagic
 {
+    private float arrmor = 30f;
+    protected void FixedUpdate()
+    {
+        float radius = 4f;
+        transform.position = info.owner.unitCenter + info.owner.toTarget.normalized * radius;
+        transform.LookAt(info.owner.target.transform.position);
+    }
+
 
     private void OnTriggerEnter(Collider collider)
     {
-        Unit body = collider.GetComponent<Unit>();
-        if (body)
+        IMagic magic = collider.GetComponent<IMagic>();
+        if (magic)
         {
-            body.TakeDamage(new Damage() { damageValue = 10f });
+            arrmor -= magic.damage;
+            Destroy(magic.gameObject);
+            if (arrmor <= 0) Destroy(gameObject);
         }
     }
 }

@@ -61,7 +61,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  type: 0
+  type: 1
+  lifetime: 5
+  DieSpell:
+    m_PersistentCalls:
+      m_Calls: []
   direction: {x: 0, y: 0, z: 0}
   isFind: 1
 --- !u!114 &114837624706903964

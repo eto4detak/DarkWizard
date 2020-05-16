@@ -9,8 +9,9 @@ public class LevelManager : Singleton<LevelManager>
     public enum LevelState
     {
         Intro,
+        StartLevel,
         Building,
-        SpawningEnemies,
+        StartBattle,
         AllEnemiesSpawned,
         Lose,
         Win
@@ -21,11 +22,15 @@ public class LevelManager : Singleton<LevelManager>
     public event Action levelCompleted;
     public event Action levelFailed;
 
+    public void StartBattle()
+    {
+        ChangeLevelState(LevelState.StartBattle);
+       // UnitManager.instance.hero.dieUnit.AddListener(GameOver);
+    }
     public void StartLevel()
     {
-        UnitManager.instance.hero.dieUnit.AddListener(GameOver);
+        ChangeLevelState(LevelState.StartLevel);
     }
-
 
     public int  GetCurrentLevel()
     {
@@ -50,7 +55,7 @@ public class LevelManager : Singleton<LevelManager>
 
     private void ChangeLevelState(LevelState newState)
     {
-        if (levelState == newState || levelState == LevelState.Win)
+        if (levelState == newState)
         {
             return;
         }
@@ -59,7 +64,10 @@ public class LevelManager : Singleton<LevelManager>
         levelState = newState;
         switch (newState)
         {
-            case LevelState.SpawningEnemies:
+            case LevelState.StartLevel:
+                CreateMags();
+                break;
+            case LevelState.StartBattle:
                 UnitManager.instance.StartUnits();
                 break;
             case LevelState.AllEnemiesSpawned:
@@ -73,6 +81,29 @@ public class LevelManager : Singleton<LevelManager>
                 break;
         }
     }
+
+
+    private void CreateMags()
+    {
+        Unit hero = Instantiate(UnitManager.instance.unitPrefab);
+        Unit enemy = Instantiate(UnitManager.instance.unitPrefab);
+
+        hero.name = "Player1";
+        hero.enabled = false;
+        hero.transform.position = new Vector3(-10, 0, 0);
+        hero.gameObject.AddComponent<KeyController>().enabled = false;
+        hero.target = enemy;
+        UnitManager.instance.hero = hero;
+        SpellBookUI.instance.Setup(hero);
+
+        enemy.name = "AI";
+        enemy.enabled = false;
+        enemy.transform.position = new Vector3(10, 0, 0);
+        enemy.gameObject.AddComponent<AIMag>().enabled = false;
+        enemy.target = hero;
+
+    }
+
 
     public IEnumerator SendAboutEndGame()
     {

@@ -23,7 +23,6 @@ public class PhobiaBall : IMagic
         sphere.AddForce(forceDirect.normalized * force, ForceMode.Force);
     }
 
-
     protected void OnTriggerEnter(Collider collider)
     {
         if (one) return;
@@ -32,7 +31,9 @@ public class PhobiaBall : IMagic
         {
             one = true;
             float distance = 10000;
-            enemy.TakeDamage(new Damage { attackDirection = enemy.transform.position - transform.position });
+            Damage dama = new Damage { attackDirection = enemy.transform.position - transform.position };
+            dama.effects.Add(new PhobiaEffect(enemy));
+            enemy.TakeDamage(dama);
             transform.position = transform.position + transform.forward * distance;
             Destroy(gameObject, 2f);
         }

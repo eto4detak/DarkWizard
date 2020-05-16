@@ -21,7 +21,7 @@ public class AIMag : MonoBehaviour
 
     private void FixedUpdate()
     {
-        currentTactics = FindTactics();
+        currentTactics = FindOptimalTactics();
         if(currentTactics != null)
         {
             currentTactics.Control();
@@ -29,7 +29,7 @@ public class AIMag : MonoBehaviour
     }
 
 
-    private IAITactics FindTactics()
+    private IAITactics FindOptimalTactics()
     {
         float need = -1;
         float currentNeed;

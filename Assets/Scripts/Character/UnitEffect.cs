@@ -39,6 +39,10 @@ public partial class Unit : MonoBehaviour
         Move(direction);
     }
 
+    public void Slow()
+    {
+        moveSpeed = 0.5f;
+    }
 
     private void OnDie(Damage damage)
     {

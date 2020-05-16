@@ -19,9 +19,9 @@ public class DominanceTactics : IAITactics
 
     public void Control()
     {
-        float optimaDist = 2f;
-        float targetDist = owner.toTarget.magnitude;
-        if(targetDist > optimaDist)
+        float optimaDist = 4f;
+
+        if(owner.toTarget.magnitude > optimaDist)
         {
             owner.Move(owner.target.transform.position - owner.transform.position);
         }
@@ -30,10 +30,14 @@ public class DominanceTactics : IAITactics
 
     public float CheckNeed()
     {
+        float fourth = 0.25f;
         float maxNeed = 8f;
         need = 0;
+
         bool emptyManaInTarget = !owner.target.isMagicZone;
-        if (emptyManaInTarget)
+        bool manyMana = owner.Mana > owner.maxMana * fourth;
+
+        if (emptyManaInTarget && manyMana)
         {
             need = maxNeed;
         }

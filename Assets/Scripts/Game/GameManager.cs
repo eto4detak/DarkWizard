@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     public float startDelay = 1f;
     public float endDelay = 3f;
@@ -14,28 +14,10 @@ public class GameManager : MonoBehaviour
 
     private int levelNumber = 0;
 
-    #region Singleton
-    static protected GameManager s_Instance;
-    static public GameManager instance { get { return s_Instance; } }
-    #endregion
-
-    private void Awake()
-    {
-        #region Singleton
-        if (s_Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        s_Instance = this;
-        DontDestroyOnLoad(gameObject);
-        #endregion
-    }
-
-    void Start()
+    private void Start()
     {
         SaveLoad.GetInstance().Load();
-
+        LevelManager.instance.StartLevel();
     }
 
     public void StartLevel()

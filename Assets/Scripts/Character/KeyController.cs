@@ -6,10 +6,10 @@ public class KeyController : Singleton<KeyController>
 {
     private Unit owner;
 
-    //private void Start()
-    //{
-    //    owner = GetComponent<Unit>();
-    //}
+    private void Start()
+    {
+        owner = GetComponent<Unit>();
+    }
 
 
     public void Setup(Unit p_owner)

@@ -20,13 +20,8 @@ public class FireBall : IMagic
 
     protected void Start()
     {
-
-        Debug.Log("Start fire " );
-
-        photonView = GetComponent<PhotonView>();
-        Invoke("Die", lifetime);
+        Destroy(gameObject, lifetime);
     }
-
 
     public void FixedUpdate()
     {
@@ -37,7 +32,6 @@ public class FireBall : IMagic
     private void OnTriggerEnter(Collider collider)
     {
         if (once) return;
-        if (!PhotonNetwork.IsMasterClient) return;
         Unit enemy = collider.GetComponent<Unit>();
         if (enemy)
         {
@@ -47,7 +41,7 @@ public class FireBall : IMagic
 
             enemy.TakeDamage(CreateDamage(enemy));
             transform.position = transform.position + transform.forward * distance;
-            Invoke("Die", fix);
+            Destroy(gameObject, fix);
         }
     }
 

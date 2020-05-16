@@ -22,9 +22,4 @@ public class FireBallSpell : IMagicSpell
         ball.Setup(new SpellInfo());
     }
 
-    public FireBall GetPrefab()
-    {
-        return Resources.Load<FireBall>("Prefabs/FireBall");
-    }
-
 }

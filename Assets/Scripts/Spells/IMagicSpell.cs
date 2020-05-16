@@ -16,7 +16,7 @@ public abstract class IMagicSpell
     }
 
 
-    public virtual T CreateMagic<T>(Vector3 position,  Quaternion? q = null) where T : IMagic
+    public virtual T CreateMagicNet<T>(Vector3 position,  Quaternion? q = null) where T : IMagic
     {
         if (q == null) q = Quaternion.identity;
         T magic = PhotonNetwork.Instantiate("Magic/" + typeof(T), position, (Quaternion)q).GetComponent<T>();
@@ -24,6 +24,13 @@ public abstract class IMagicSpell
         return magic;
     }
 
+    public virtual T CreateMagic<T>(Vector3 pos) where T : IMagic
+    {
+        var prefab = GetPrefab<T>();
+        T magic = GameObject.Instantiate(prefab, pos, Quaternion.identity);
+        MagicManager.instance.RegisterMagic(magic);
+        return magic;
+    }
 
     public T GetPrefab<T>() where T : MonoBehaviour
     {

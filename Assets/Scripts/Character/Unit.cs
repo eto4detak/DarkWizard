@@ -14,7 +14,7 @@ public partial class Unit : MonoBehaviour, IPunObservable
     public bool isDie;
     public bool canDamage;
     public float currentHealth;
-    public float moveSpeed = 1;
+    public float moveSpeed = 1f;
     public UnitState state = UnitState.Idle;
     public Animator anim;
     public GameObject firePoint;
@@ -39,6 +39,11 @@ public partial class Unit : MonoBehaviour, IPunObservable
     
     private void Awake()
     {
+        if (UnitManager.instanceExists)
+        {
+            UnitManager.instance.AddUnit(this);
+        }
+
         agent = GetComponent<NavMeshAgent>();
         rbody = GetComponent<Rigidbody>();
 
@@ -52,14 +57,8 @@ public partial class Unit : MonoBehaviour, IPunObservable
         spells.Add(new PhobiaBallSpell());
         spells.Add(new RainSpell());
         spells.Add(new SwordSpell());
+        spells.Add(new BlackHoleSpell());
     }
-
-
-    private void Start()
-    {
-        UnitManager.instance.AddUnit(this);
-    }
-
 
     private void FixedUpdate()
     {
@@ -71,7 +70,7 @@ public partial class Unit : MonoBehaviour, IPunObservable
         unitCenter = transform.position + Vector3.up;
         if (target)
         {
-            toTarget = target.transform.position - transform.position;
+            toTarget = target.unitCenter - unitCenter;
         }
         ReplenishmentMana();
         MagicZone();
@@ -82,6 +81,7 @@ public partial class Unit : MonoBehaviour, IPunObservable
         noControl = false;
         isMove = false;
         movement = Vector3.zero;
+        moveSpeed = 1f;
         oldPosition = transform.position;
     }
 

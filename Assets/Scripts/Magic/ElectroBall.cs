@@ -8,7 +8,6 @@ public class ElectroBall : IMagic
 
     private float speed = 10f;
 
-
     public override void Setup(SpellInfo p_info)
     {
         info = p_info;
@@ -40,6 +39,7 @@ public class ElectroBall : IMagic
             {
                 if (unit != info.owner)
                 {
+                    if (!unit.isMagicZone) Destroy(gameObject);
                     unit.Mana -= deltaMana;
                     isFind = false;
                 }

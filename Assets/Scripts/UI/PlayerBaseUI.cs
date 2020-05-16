@@ -48,6 +48,8 @@ public class PlayerBaseUI : MonoBehaviour
 
         int currentMana = (int)origin.currentMana;
         mana.text = currentMana.ToString(CultureInfo.InvariantCulture);
+
+        userName.text = origin.name;
     }
 
     protected virtual void OnChangedMana(Unit info)

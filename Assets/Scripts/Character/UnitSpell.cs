@@ -19,7 +19,6 @@ public partial class Unit : MonoBehaviour
         return spells;
     }
 
-
     public float Mana
     {
         get => currentMana;
@@ -41,13 +40,14 @@ public partial class Unit : MonoBehaviour
 
     public void ApplySpell(IMagicSpell spell)
     {
+        if (noControl) return;
         if (currentSpellTime > 0) return;
         CastSpell(spell);
     }
     public void ApplySpell(int spellNumber)
     {
         if (currentSpellTime > 0) return;
-        if(spells.Count < spellNumber)
+        if(spells.Count > spellNumber)
         {
             CastSpell(spells[spellNumber]);
         }
@@ -69,9 +69,10 @@ public partial class Unit : MonoBehaviour
     protected void ReplenishmentMana()
     {
         float minimumAdd = 2f * Time.fixedDeltaTime;
-        float addMana = Mana * 0.05f * Time.fixedDeltaTime;
+        float addMana = 5f * Time.fixedDeltaTime;
+        //float addMana = Mana * 0.05f * Time.fixedDeltaTime;
 
-        addMana = addMana > minimumAdd ? addMana : minimumAdd;
+        //addMana = addMana > minimumAdd ? addMana : minimumAdd;
         Mana += addMana;
     }
 

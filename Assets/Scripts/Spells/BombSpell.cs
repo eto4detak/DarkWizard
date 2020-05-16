@@ -19,7 +19,9 @@ public class BombSpell : IMagicSpell
             Vector3? position = FindArea(info.owner.transform.position, info.owner.target.transform.position);
             if(position != null)
             {
-                Bomb bomb = CreateMagic<Bomb>(position.Value, Quaternion.identity);
+                Vector3 pos = position == null ? Vector3.zero : new Vector3(position.Value.x, position.Value.y, position.Value.z);
+                Bomb bomb = CreateMagic<Bomb>(pos);
+                //Bomb bomb = CreateMagic<Bomb>(position.Value, Quaternion.identity);
                 GameObject.Destroy(bomb.gameObject, destroyTime);
             }
         }

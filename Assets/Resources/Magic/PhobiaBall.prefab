@@ -77,8 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d30102c6555ba149813661470f6cfbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 1
   type: 0
+  lifetime: 5
+  DieSpell:
+    m_PersistentCalls:
+      m_Calls: []
   direction: {x: 0, y: 0, z: 0}
   sphere: {fileID: 8333285992031319724}
 --- !u!114 &114885027744705142

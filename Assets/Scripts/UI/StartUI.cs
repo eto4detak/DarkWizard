@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartMenu : MonoBehaviour
+public class StartUI : MonoBehaviour
 {
     public Canvas pauseMenuCanvas;
     public Text titleText;
@@ -12,7 +12,7 @@ public class StartMenu : MonoBehaviour
 
     public void StartLevel()
     {
-        LevelManager.instance.StartLevel();
+        LevelManager.instance.StartBattle();
     }
 
 
