@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicTeleportSpell : IMagicSpell
+public class MagicTeleportSpell : AMagicSpell
 {
     public MagicTeleportSpell()
     {

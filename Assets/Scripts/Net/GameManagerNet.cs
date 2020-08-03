@@ -47,7 +47,7 @@ public class GameManagerNet : MonoBehaviourPunCallbacks
 
     private void CreateMagicSpells()
     {
-        List<IMagic> magicPrefabs = MagicManager.instance.allMagicPrefabs;
+        List<AMagic> magicPrefabs = MagicManager.instance.allMagicPrefabs;
         //magicPrefabs.Add();
     }
 

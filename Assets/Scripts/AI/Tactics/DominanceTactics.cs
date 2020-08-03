@@ -6,11 +6,10 @@ public class DominanceTactics : IAITactics
 {
     public float need;
 
-    private Unit owner;
     private float currentTime;
     private float turnTime = 2f;
-
     private bool closeBorder;
+    private Unit owner;
 
     public DominanceTactics(Unit p_owner)
     {
@@ -19,11 +18,13 @@ public class DominanceTactics : IAITactics
 
     public void Control()
     {
-        float optimaDist = 4f;
+        if (owner.target == null) return;
+        float optimaDist = 7f;
 
         if(owner.toTarget.magnitude > optimaDist)
         {
-            owner.Move(owner.target.transform.position - owner.transform.position);
+            Vector3 direct = owner.target.transform.position - owner.transform.position;
+            owner.Move(direct);
         }
         owner.ApplyAttackSpell();
     }
@@ -34,10 +35,9 @@ public class DominanceTactics : IAITactics
         float maxNeed = 8f;
         need = 0;
 
-        bool emptyManaInTarget = !owner.target.isMagicZone;
         bool manyMana = owner.Mana > owner.maxMana * fourth;
 
-        if (emptyManaInTarget && manyMana)
+        if (manyMana)
         {
             need = maxNeed;
         }

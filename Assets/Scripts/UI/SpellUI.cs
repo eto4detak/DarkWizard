@@ -8,7 +8,7 @@ public class SpellUI : MonoBehaviour
 {
     public List<Button> spellButtons = new List<Button>();
 
-    private List<IMagicSpell> addingSpells;
+    private List<AMagicSpell> addingSpells;
     void Start()
     {
         var hero = UnitManager.instance.hero;

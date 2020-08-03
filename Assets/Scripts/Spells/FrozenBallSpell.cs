@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrozenBallSpell : IMagicSpell
+public class FrozenBallSpell : AMagicSpell
 {
 
     public override void Apply(SpellInfo info)

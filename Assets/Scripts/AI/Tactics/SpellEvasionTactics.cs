@@ -12,10 +12,10 @@ public class SpellEvasionTactics : IAITactics
     private float currentTime;
     private bool closeBorder;
     private Unit owner;
-    private IMagic dangerSpell;
+    private AMagic dangerSpell;
     private Vector3 evasionDirect;
     private bool needNewDirect;
-    private IMagic oldDangerSpell;
+    private AMagic oldDangerSpell;
 
     public SpellEvasionTactics(Unit p_ownwer)
     {
@@ -48,7 +48,7 @@ public class SpellEvasionTactics : IAITactics
         float dangerAngle = 30f;
         float dangerDistance = 8f;
         float defenceDistance = 2f;
-        List<IMagic> magics = MagicManager.instance.magicsInScene;
+        List<AMagic> magics = MagicManager.instance.magicsInScene;
         
         for (int i = 0; i < magics.Count; i++)
         {

@@ -22,6 +22,9 @@ public class AIMag : MonoBehaviour
     private void FixedUpdate()
     {
         currentTactics = FindOptimalTactics();
+
+        Debug.Log("currentTactics " + currentTactics);
+
         if(currentTactics != null)
         {
             currentTactics.Control();

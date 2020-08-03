@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElectroSpell : IMagicSpell
+public class ElectroSpell : AMagicSpell
 {
     public ElectroSpell()
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicSword : IMagic
+public class MagicSword : AMagic
 {
     [SerializeField] private Collider body;
     private bool once;

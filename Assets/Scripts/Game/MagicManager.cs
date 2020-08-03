@@ -9,8 +9,8 @@ using ExitGames.Client.Photon;
 
 public class MagicManager : Singleton<MagicManager>
 {
-    public List<IMagic> magicsInScene = new List<IMagic>();
-    public List<IMagic> allMagicPrefabs = new List<IMagic>();
+    public List<AMagic> magicsInScene = new List<AMagic>();
+    public List<AMagic> allMagicPrefabs = new List<AMagic>();
 
 
     protected void Start()
@@ -18,12 +18,12 @@ public class MagicManager : Singleton<MagicManager>
     }
 
 
-    public void RegisterMagic(IMagic magic)
+    public void RegisterMagic(AMagic magic)
     {
         magicsInScene.Add(magic);
     }
 
-    public void UnregisterMagic(IMagic magic)
+    public void UnregisterMagic(AMagic magic)
     {
         magicsInScene.Remove(magic);
         

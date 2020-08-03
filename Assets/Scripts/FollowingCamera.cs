@@ -12,12 +12,23 @@ public class FollowingCamera : MonoBehaviour
     private void Awake()
     {
         startPosition = transform.position;
-        directionToCamera = transform.position - target.transform.position;
+        if (target)
+        {
+            directionToCamera = transform.position - target.transform.position;
+        }
+        else
+        {
+            directionToCamera = transform.position;
+        }
     }
+
 
     private void FixedUpdate()
     {
-        FollowingDistance();
+        if (target)
+        {
+            FollowingDistance();
+        }
     }
 
 

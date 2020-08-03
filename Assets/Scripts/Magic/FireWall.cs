@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWall : IMagic
+public class FireWall : AMagic
 {
     private float time;
     private float damagePeriod = 0.5f;

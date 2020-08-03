@@ -16,6 +16,9 @@ public class LevelManager : Singleton<LevelManager>
         Lose,
         Win
     }
+
+    public float timer;
+    public Spawner spawner;
     public LevelData levelData;
     public LevelState levelState { get; protected set; }
 
@@ -25,8 +28,19 @@ public class LevelManager : Singleton<LevelManager>
     public void StartBattle()
     {
         ChangeLevelState(LevelState.StartBattle);
-       // UnitManager.instance.hero.dieUnit.AddListener(GameOver);
+        StartCoroutine(StartTimer());
+        TotalStatisticUI.instance.StartTimer();
     }
+
+    public IEnumerator StartTimer()
+    {
+        while (true)
+        {
+            if(levelState == LevelState.StartBattle)  timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     public void StartLevel()
     {
         ChangeLevelState(LevelState.StartLevel);
@@ -37,11 +51,11 @@ public class LevelManager : Singleton<LevelManager>
         return SceneManager.sceneCountInBuildSettings;
     }
 
-
     public void LoadLevel(int levelNumber)
     {
         SceneManager.LoadScene("Level"+ levelNumber);
     }
+
     public void LoadNextLevel()
     {
         LoadLevel(levelData.levelNumber+1);
@@ -66,67 +80,79 @@ public class LevelManager : Singleton<LevelManager>
         {
             case LevelState.StartLevel:
                 CreateMags();
+                
                 break;
             case LevelState.StartBattle:
                 UnitManager.instance.StartUnits();
+                spawner.StartSpawn();
                 break;
             case LevelState.AllEnemiesSpawned:
                 break;
             case LevelState.Lose:
-                UnitManager.instance.SetVitoryEnemies();
-                StartCoroutine(SendAboutEndGame());
+                StartCoroutine(GameOver());
+                spawner.StopSpawn();
                 break;
             case LevelState.Win:
-                StartCoroutine(SendLevelCompleted());
+                StartCoroutine(GameComplete());
                 break;
         }
     }
 
 
+
     private void CreateMags()
     {
         Unit hero = Instantiate(UnitManager.instance.unitPrefab);
-        Unit enemy = Instantiate(UnitManager.instance.unitPrefab);
+        UnitManager.instance.AttachedUnit(hero);
+        hero.dieUnit.AddListener(StartGameOver);
 
         hero.name = "Player1";
         hero.enabled = false;
-        hero.transform.position = new Vector3(-10, 0, 0);
+        hero.transform.position = Vector3.zero;
         hero.gameObject.AddComponent<KeyController>().enabled = false;
-        hero.target = enemy;
+        hero.transform.position = new Vector3(-10, 0, 0);
         UnitManager.instance.hero = hero;
         SpellBookUI.instance.Setup(hero);
 
+        Unit enemy = Instantiate(UnitManager.instance.unitPrefab);
         enemy.name = "AI";
         enemy.enabled = false;
         enemy.transform.position = new Vector3(10, 0, 0);
         enemy.gameObject.AddComponent<AIMag>().enabled = false;
-        enemy.target = hero;
+        enemy.target = hero.gameObject;
+        hero.target = enemy.gameObject;
 
+        FollowingCamera camera = Camera.main.GetComponent<FollowingCamera>();
+        camera.target = hero.gameObject;
     }
 
 
-    public IEnumerator SendAboutEndGame()
+    public IEnumerator GameOver()
     {
+        ChangeLevelState(LevelState.Lose);
+
+        UnitManager.instance.SetVitoryEnemies();
         float time = 2f;
         yield return new WaitForSeconds(time);
         levelFailed?.Invoke();
+        EndGameScreen.instance.ShowPanel();
     }
 
-    public IEnumerator SendLevelCompleted()
+    public IEnumerator GameComplete()
     {
+        ChangeLevelState(LevelState.Win);
+
         float time = 2f;
         yield return new WaitForSeconds(time);
         levelCompleted?.Invoke();
     }
 
-    private void GameOver()
+
+    public void StartGameOver()
     {
-        ChangeLevelState(LevelState.Lose);
+        StartCoroutine(GameOver());
     }
-    private void GameComplete()
-    {
-        ChangeLevelState(LevelState.Win);
-    }
+
 
 }
 

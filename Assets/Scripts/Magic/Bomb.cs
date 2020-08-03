@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : IMagic
+public class Bomb : AMagic
 {
     public ParticleSystem explosion;
     protected void OnTriggerEnter(Collider collider)

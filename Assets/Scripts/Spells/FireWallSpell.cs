@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireWallSpell : IMagicSpell
+public class FireWallSpell : AMagicSpell
 {
     public FireWallSpell()
     {

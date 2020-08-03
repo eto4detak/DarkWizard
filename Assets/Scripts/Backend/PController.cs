@@ -5,28 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-public class PController : MonoBehaviour
+public class PController : Singleton<PController>
 {
-    #region Singleton
-    static protected PController s_Instance;
-    static public PController instance { get { return s_Instance; } }
-    #endregion
-    void Awake()
-    {
-        #region Singleton
-        if (s_Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        s_Instance = this;
-        #endregion
-    }
-
     [Serializable]
     public struct TeamColor
     {
-       // public Team team;
         public Material color;
     }
     public List<Unit> playerUnits = new List<Unit>();
@@ -34,14 +17,6 @@ public class PController : MonoBehaviour
     public UnityEvent EventDeadPlayers = new UnityEvent();
     public Material playerMaterial;
     public Material enemyMaterial;
-
-    private void Start()
-    {
-       // StartUnit();
-    }
-
-
-
 
     public Unit GetClosestFreePlayerUnit(Vector3 target)
     {

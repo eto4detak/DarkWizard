@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackHoleSpell : IMagicSpell
+public class BlackHoleSpell : AMagicSpell
 {
     public BlackHoleSpell()
     {
@@ -11,6 +11,8 @@ public class BlackHoleSpell : IMagicSpell
 
     public override void Apply(SpellInfo info)
     {
+        if (!info.owner.target) return;
+
         BlackHole ball = CreateMagic<BlackHole>(info.owner.target.transform.position);
         ball.Setup(info);
     }

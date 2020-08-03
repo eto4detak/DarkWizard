@@ -53,8 +53,8 @@ MonoBehaviour:
   isMagicZone: 0
   isDie: 0
   canDamage: 0
-  currentHealth: 0
-  moveSpeed: 3
+  currentHealth: 50
+  moveSpeed: 0.5
   state: 0
   anim: {fileID: 8152132363893465379}
   firePoint: {fileID: 8369083707740706804}
@@ -62,6 +62,11 @@ MonoBehaviour:
   dieUnit:
     m_PersistentCalls:
       m_Calls: []
+  startUnit:
+    m_PersistentCalls:
+      m_Calls: []
+  toTarget: {x: 0, y: 0, z: 0}
+  unitCenter: {x: 0, y: 0, z: 0}
   psDeath: {fileID: 5088643453754658287}
   currentMana: 0
   maxMana: 0
@@ -245,6 +250,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wizard14
       objectReference: {fileID: 0}
+    - target: {fileID: 1603316765080152279, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 52fb7871ec79647458614b2eb00d439d, type: 2}
     - target: {fileID: 1603316765089138487, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -300,11 +310,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1603316765080152279, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 52fb7871ec79647458614b2eb00d439d, type: 2}
     - target: {fileID: 1603316765089138355, guid: 59d698eafd94fb7439e3b7e4f6aa7a68,
         type: 3}
       propertyPath: m_LocalScale.x

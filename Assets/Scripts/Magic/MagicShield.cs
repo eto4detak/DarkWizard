@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicShield : IMagic
+public class MagicShield : AMagic
 {
     private float arrmor = 30f;
     protected void FixedUpdate()
     {
         float radius = 4f;
+
+
+        if (!info.owner.target) return;
         transform.position = info.owner.unitCenter + info.owner.toTarget.normalized * radius;
         transform.LookAt(info.owner.target.transform.position);
     }
@@ -15,7 +18,7 @@ public class MagicShield : IMagic
 
     private void OnTriggerEnter(Collider collider)
     {
-        IMagic magic = collider.GetComponent<IMagic>();
+        AMagic magic = collider.GetComponent<AMagic>();
         if (magic)
         {
             arrmor -= magic.damage;

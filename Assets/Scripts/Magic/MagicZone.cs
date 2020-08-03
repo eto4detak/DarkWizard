@@ -2,18 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MagicZone : MonoBehaviour
 {
     public Unit owner;
     protected bool currentState;
 
-    void Start()
+    private void Start()
     {
         if (owner == null) Destroy(gameObject);
         owner.dieUnit.AddListener(OnDieOwner);
-        transform.parent = null;
-
     }
 
     private void OnDieOwner()
@@ -21,20 +20,25 @@ public class MagicZone : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void FixedUpdate()
+
+    private void OnTriggerEnter(Collider other)
     {
-        ChangeState(owner.isMagicZone);
-        transform.position = owner.transform.position;
+        if (owner.isMagicZone)
+        {
+            Unit target = other.GetComponent<Unit>();
+            if (target == owner) return;
+            if (target )
+            {
+                ToTeleport(target);
+            }
+        }
     }
 
-
-    public void ChangeState(bool magicZone)
+    private void ToTeleport(Unit target)
     {
-        if(currentState == magicZone)
-        {
-            return;
-        }
-        gameObject.SetActive(magicZone);
+        float radius = 20f;
+        Vector3 toPoint = new Vector3(Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
+        target.Teleport(toPoint);
     }
 
 }

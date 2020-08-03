@@ -5,16 +5,10 @@ using UnityEngine;
 
 public partial class Unit : MonoBehaviour
 {
-    public float currentMana;
-    public float maxMana;
-    public event Action<Unit> changeMana;
-
-    protected float spellTime = 1f;
-    protected float currentSpellTime;
-    protected List<IMagicSpell> spells = new List<IMagicSpell>();
 
 
-    public List<IMagicSpell> GetSpells()
+
+    public List<AMagicSpell> GetSpells()
     {
         return spells;
     }
@@ -38,7 +32,7 @@ public partial class Unit : MonoBehaviour
     }
 
 
-    public void ApplySpell(IMagicSpell spell)
+    public void ApplySpell(AMagicSpell spell)
     {
         if (noControl) return;
         if (currentSpellTime > 0) return;
@@ -68,15 +62,11 @@ public partial class Unit : MonoBehaviour
 
     protected void ReplenishmentMana()
     {
-        float minimumAdd = 2f * Time.fixedDeltaTime;
-        float addMana = 5f * Time.fixedDeltaTime;
-        //float addMana = Mana * 0.05f * Time.fixedDeltaTime;
-
-        //addMana = addMana > minimumAdd ? addMana : minimumAdd;
+        float addMana = 25f * Time.fixedDeltaTime;
         Mana += addMana;
     }
 
-    protected bool ManaToSpell(IMagicSpell spell)
+    protected bool ManaToSpell(AMagicSpell spell)
     {
         if (currentMana >= spell.mana)
         {
@@ -86,7 +76,7 @@ public partial class Unit : MonoBehaviour
         return false;
     }
 
-    protected void CastSpell(IMagicSpell spell)
+    protected void CastSpell(AMagicSpell spell)
     {
         if (ManaToSpell(spell))
         {

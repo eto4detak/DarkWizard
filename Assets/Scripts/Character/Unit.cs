@@ -7,45 +7,51 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
-public partial class Unit : MonoBehaviour, IPunObservable
+
+public partial class Unit : MonoBehaviour, IPunObservable, IHealth
 {
+    public Vector3 toTarget;
+    public Vector3 unitCenter;
+    public float currentHealth;
+    public float moveSpeed = 0.1f;
+    public float currentMana;
+    public float maxMana;
     public bool run;
     public bool isMagicZone;
     public bool isDie;
     public bool canDamage;
-    public float currentHealth;
-    public float moveSpeed = 1f;
-    public UnitState state = UnitState.Idle;
-    public Animator anim;
-    public GameObject firePoint;
-    public Unit target;
+    public bool isMove;
+    public event Action<Unit> damaged;
     public UnityEvent dieUnit = new UnityEvent();
     public UnityEvent startUnit = new UnityEvent();
-    public event Action<Unit> damaged;
-    public Vector3 toTarget;
-    public Vector3 unitCenter;
+    public UnitState state = UnitState.Idle;
+    public List<IUnitEffect> effects = new List<IUnitEffect>();
+    public Animator anim;
+    public GameObject firePoint;
+    public GameObject target;
+    public event Action<Unit> changeMana;
+    public ParticleSystem psDeath;
 
-    [SerializeField] public ParticleSystem psDeath;
+    [SerializeField]  protected float spellTime = 0.5f;
+    protected float currentSpellTime;
+    protected List<AMagicSpell> spells = new List<AMagicSpell>();
 
+    private Vector3 moveTarget;
+    private bool isMoveTarget;
     private bool notMove;
     private bool noControl;
-    private bool isMove;
     private UnitState attackType;
     private Vector3 movement = Vector3.zero;
     private Rigidbody[] dollBodys;
-    private NavMeshAgent agent;
-    private Rigidbody rbody;
     private Vector3 oldPosition;
-    
+    private CharacterController ch_control;
+    private float gravitiForce;
+    private float gravitiBoost;
+
     private void Awake()
     {
-        if (UnitManager.instanceExists)
-        {
-            UnitManager.instance.AddUnit(this);
-        }
-
-        agent = GetComponent<NavMeshAgent>();
-        rbody = GetComponent<Rigidbody>();
+        UnitManager.instance.AddUnit(this);
+        ch_control = GetComponent<CharacterController>();
 
         spells.Add(new BombSpell());
         spells.Add(new Dispell());
@@ -54,37 +60,67 @@ public partial class Unit : MonoBehaviour, IPunObservable
         spells.Add(new FireWallSpell());
         spells.Add(new MagicShieldSpell());
         spells.Add(new MagicTeleportSpell());
-        spells.Add(new PhobiaBallSpell());
+        //spells.Add(new PhobiaBallSpell());
         spells.Add(new RainSpell());
         spells.Add(new SwordSpell());
-        spells.Add(new BlackHoleSpell());
+        //spells.Add(new FireBallBombSpell());
+        spells.Add(new MagicPushSpell());
+        spells.Add(new MagicWallSpell());
+        //  spells.Add(new BlackHoleSpell());
+    }
+
+    private void OnEnable()
+    {
+        moveTarget = transform.position;
     }
 
     private void FixedUpdate()
     {
-        if (target == null)
-        {
-            target = UnitManager.instance.units.Find(x => x != this);
-            
-        }
+        float minOffset = 0.1f;
+        FindTarget();
         unitCenter = transform.position + Vector3.up;
-        if (target)
-        {
-            toTarget = target.unitCenter - unitCenter;
-        }
+
         ReplenishmentMana();
         MagicZone();
         currentSpellTime -= Time.fixedDeltaTime;
         ApplyEffects();
+
+        if (target)
+        {
+            toTarget = target.transform.position - transform.position;
+        }
+        Vector3 moveDirect = moveTarget - transform.position;
+        moveDirect.y = 0;
+        if (isMoveTarget)
+        {
+            if (moveDirect.magnitude > minOffset)
+            {
+                Move(moveDirect);
+            }
+            else
+            {
+                isMoveTarget = false;
+            }
+        }
+
+
         StepMove();
+        oldPosition = transform.position;
+        
+        OnMove();
+
         notMove = false;
         noControl = false;
-        isMove = false;
         movement = Vector3.zero;
-        moveSpeed = 1f;
-        oldPosition = transform.position;
     }
 
+
+
+    public void SetMoveTarget(Vector3 target)
+    {
+        isMoveTarget = true;
+        moveTarget = target;
+    }
 
 
     public void ChangeState(UnitState newState)
@@ -148,6 +184,16 @@ public partial class Unit : MonoBehaviour, IPunObservable
         ChangeState(attackType);
     }
 
+    public void FindTarget()
+    {
+        Transform tt = transform.GetClosest(ObjectManager.instance.objects);
+        if (tt)
+        {
+            target = tt.gameObject;
+        }
+    }
+
+
     public void FinishAttack()
     {
 
@@ -191,41 +237,64 @@ public partial class Unit : MonoBehaviour, IPunObservable
 
     private void StepMove()
     {
+        float minDist = 0.00001f;
+
+
         if (notMove || noControl)
         {
             return;
         }
-        float minDist = 0.001f;
         movement.y = 0;
         float deltaMve = (oldPosition - transform.position).magnitude;
-        if (deltaMve > minDist) isMove = true;
-        agent.isStopped = false;
+
+        isMove = deltaMve > minDist;
 
         RotateUnit();
-        StepUnit();
         if (deltaMve > minDist) ChangeState(UnitState.Run);
         else ChangeState(UnitState.Idle);
     }
 
-
     private void RotateUnit()
     {
         Vector3 rotateDirection;
-        float singleStep = moveSpeed * Time.deltaTime * 5;
+        float singleStep = 0.2f;
 
-        if (isMove) rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
-        else rotateDirection = Vector3.RotateTowards(transform.forward, toTarget, singleStep, 0.0f);
+        rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
+
+        if (isMove)
+        {
+            rotateDirection = Vector3.RotateTowards(transform.forward, movement, singleStep, 0.0f);
+        }
+        else if(target)
+        {
+            rotateDirection = Vector3.RotateTowards(transform.forward, toTarget, singleStep, 0.0f);
+        }
         rotateDirection.y = 0;
         transform.rotation = Quaternion.LookRotation(rotateDirection);
     }
 
-
-    private void StepUnit()
+    private void OnMove()
     {
-        Vector3 stepMove = movement.normalized * moveSpeed;
-        stepMove.y = 0;
-        agent.destination = transform.position + stepMove;
-        rbody.velocity = Vector3.zero;
+        movement = movement.normalized * moveSpeed;
+        movement = new Vector3(movement.x, gravitiBoost, movement.z);
+        GamingGravity();
+        ch_control.Move(movement);
+    }
+
+    private void GamingGravity()
+    {
+        float kGravity = 1f;
+        if (ch_control.isGrounded)
+        {
+            gravitiBoost = 0;
+        }
+        else
+        {
+            gravitiForce -= Time.deltaTime * kGravity;
+            gravitiBoost += gravitiForce;
+            if (gravitiBoost > 0.2) gravitiBoost = 0.2f;
+            if (gravitiBoost < -0.2) gravitiBoost = -0.2f;
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlackHole : IMagic
+public class BlackHole : AMagic
 {
 
     private void OnTriggerStay(Collider other)

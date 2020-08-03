@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ElectroBall : IMagic
+public class ElectroBall : AMagic
 {
     public bool isFind = true;
 
@@ -17,6 +17,7 @@ public class ElectroBall : IMagic
 
     protected void FixedUpdate()
     {
+        if (info.owner.target == null) return;
         Vector3 direction;
         if (isFind)
         {
@@ -55,7 +56,7 @@ public class ElectroBall : IMagic
         }
         else
         {
-            IMagic magic = collider.GetComponent<IMagic>();
+            AMagic magic = collider.GetComponent<AMagic>();
             if(magic != null)
             {
                 Destroy(gameObject);

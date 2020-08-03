@@ -7,7 +7,7 @@ public class ApplySpell : MonoBehaviour
 {
     public int number;
     private Button btn;
-    private List<IMagicSpell> addingSpells;
+    private List<AMagicSpell> addingSpells;
     void Start()
     {
         btn = GetComponent<Button>();

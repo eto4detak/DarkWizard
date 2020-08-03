@@ -67,18 +67,13 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     public void OnContinueGame()
     {
-        bool startScreen = Level.instance == null;
-        if (startScreen)
-        {
             int lvlNumber = SaveLoad.GetInstance().pData.lastLevel > 0 ? SaveLoad.GetInstance().pData.lastLevel : 1;
             SceneManager.LoadScene("Level" + lvlNumber);
-            //LevelManager.instance.LoadLevel(lvlNumber);
-        }
-        else
-        {
-            HideMainMenu();
-            GMode.instance.ContinueGame();
-        }
+        //LevelManager.instance.LoadLevel(lvlNumber);
+
+        return;
+        HideMainMenu();
+        GMode.instance.ContinueGame();
     }
 
     public void OnExitGame()
@@ -97,12 +92,9 @@ public class MainMenuManager : Singleton<MainMenuManager>
 
     private void SaveCurrentLevel()
     {
-        if (Level.instance != null)
-        {
-            SaveLoad.GetInstance().Load();
-            SaveLoad.GetInstance().pData.lastLevel = LevelManager.instance.levelData.levelNumber;
-            SaveLoad.GetInstance().Save(SaveLoad.GetInstance().pData);
-        }
+        SaveLoad.GetInstance().Load();
+        SaveLoad.GetInstance().pData.lastLevel = LevelManager.instance.levelData.levelNumber;
+        SaveLoad.GetInstance().Save(SaveLoad.GetInstance().pData);
     }
 
     private void SetupLevelsInPanel()

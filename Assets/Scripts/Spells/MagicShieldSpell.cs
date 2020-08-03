@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicShieldSpell : IMagicSpell
+public class MagicShieldSpell : AMagicSpell
 {
     public MagicShieldSpell()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class FrozenBall : IMagic
+public class FrozenBall : AMagic
 {
     public Rigidbody sphere;
 

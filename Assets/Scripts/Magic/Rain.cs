@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rain : IMagic
+public class Rain : AMagic
 {
 
 }

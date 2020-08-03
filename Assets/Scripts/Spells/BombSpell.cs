@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombSpell : IMagicSpell
+public class BombSpell : AMagicSpell
 {
 
     public BombSpell()
@@ -12,6 +12,8 @@ public class BombSpell : IMagicSpell
 
     public override void Apply(SpellInfo info)
     {
+        if (!info.owner.target) return;
+
         float destroyTime = 10f;
         int bombCount = 4;
         for (int i = 0; i < bombCount; i++)

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dispell : IMagicSpell
+public class Dispell : AMagicSpell
 {
     public Dispell()
     {
@@ -14,7 +14,7 @@ public class Dispell : IMagicSpell
         Collider[] radiusColliders = Physics.OverlapSphere(info.owner.transform.position, 2f);
         for (int i = 0; i < radiusColliders.Length; i++)
         {
-            IMagic magic = radiusColliders[i].GetComponent<IMagic>();
+            AMagic magic = radiusColliders[i].GetComponent<AMagic>();
             if(magic != null)
             {
                 GameObject.Destroy(radiusColliders[i].gameObject);

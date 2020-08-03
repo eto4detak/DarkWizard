@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class PhobiaBallSpell : IMagicSpell
+public class PhobiaBallSpell : AMagicSpell
 {
     public override void Apply(SpellInfo info)
     {

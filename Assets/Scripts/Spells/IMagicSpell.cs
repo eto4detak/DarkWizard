@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 
-public abstract class IMagicSpell
+public abstract class AMagicSpell
 {
     public float mana { get; set; } = 10f;
     public MagicType type = MagicType.attack;
@@ -16,7 +16,7 @@ public abstract class IMagicSpell
     }
 
 
-    public virtual T CreateMagicNet<T>(Vector3 position,  Quaternion? q = null) where T : IMagic
+    public virtual T CreateMagicNet<T>(Vector3 position,  Quaternion? q = null) where T : AMagic
     {
         if (q == null) q = Quaternion.identity;
         T magic = PhotonNetwork.Instantiate("Magic/" + typeof(T), position, (Quaternion)q).GetComponent<T>();
@@ -24,7 +24,7 @@ public abstract class IMagicSpell
         return magic;
     }
 
-    public virtual T CreateMagic<T>(Vector3 pos) where T : IMagic
+    public virtual T CreateMagic<T>(Vector3 pos) where T : AMagic
     {
         var prefab = GetPrefab<T>();
         T magic = GameObject.Instantiate(prefab, pos, Quaternion.identity);

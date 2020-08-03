@@ -15,6 +15,27 @@ public class UnitManager : Singleton<UnitManager>
     public UnityEvent dieHero = new UnityEvent();
     public List<PlayerBaseUI> playerPanels = new List<PlayerBaseUI>();
 
+    public void AttachedUnit(Unit added)
+    {
+        KeyController keyC = added.GetComponent<KeyController>();
+        if (keyC)
+        {
+            hero = added;
+        }
+
+        bool newUnit = !units.Exists(x => x.Equals(added));
+        if (newUnit)
+        {
+            units.Add(added);
+        }
+    }
+
+    public void RemoveUnit(Unit removed)
+    {
+        units.Remove(removed);
+    }
+
+
     public void AddUnit(Unit added)
     {
         units.Add(added);
@@ -32,6 +53,8 @@ public class UnitManager : Singleton<UnitManager>
         SceneManager.GetActiveScene().GetRootGameObjects().ToList().ForEach(g => results.AddRange(g.GetComponentsInChildren<T>()));
         return results;
     }
+
+
 
     public void StopUnit()
     {

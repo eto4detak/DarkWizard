@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public abstract class IMagic : MonoBehaviour
+public abstract class AMagic : MonoBehaviour
 {
     public float damage = 0f;
     public MagicType type;
@@ -11,7 +11,7 @@ public abstract class IMagic : MonoBehaviour
 
     public UnityEvent DieSpell = new UnityEvent();
     
-    [HideInInspector]public Vector3 direction;
+    [HideInInspector] public Vector3 direction;
 
     protected SpellInfo info;
 

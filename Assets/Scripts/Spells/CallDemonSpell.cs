@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CallDemonSpell : IMagicSpell
+public class CallDemonSpell : AMagicSpell
 {
     public CallDemonSpell()
     {

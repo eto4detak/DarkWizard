@@ -11,6 +11,7 @@ public static class UnityExtension
         Vector3 directionToTarget;
         for (int i = 0; i < stack.Count; i++)
         {
+            if (stack[i] == null) continue;
             directionToTarget = stack[i].transform.position - fromThis.transform.position;
             float dSqrToTarget = directionToTarget.sqrMagnitude;
             if (dSqrToTarget < closestDistanceSqr)
@@ -58,6 +59,7 @@ public static class UnityExtension
         }
         return closest;
     }
+
     public static float SumPath(List<Vector3> stack)
     {
         float lenght = 0;

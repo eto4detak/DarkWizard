@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhobiaBall : IMagic
+public class PhobiaBall : AMagic
 {
     [SerializeField] private Rigidbody sphere;
 
@@ -11,16 +11,20 @@ public class PhobiaBall : IMagic
 
     public override void Setup(SpellInfo p_spell)
     {
+
         info = p_spell;
+        if (info.owner.target == null) return;
+
         float distance = Random.Range(5f, 7f);
         float up = 5f;
 
         Vector3 startPoint = info.owner.target.transform.position  + info.owner.toTarget.normalized * distance
             + new Vector3(Random.Range(0f, 1f), 0, Random.Range(0f, 1f)).normalized  * distance/3 + Vector3.up * up;
         transform.position = startPoint;
-        Vector3 forceDirect = info.owner.target.unitCenter - transform.position;
+        Vector3 forceDirect = info.owner.target.transform.position - transform.position;
 
         sphere.AddForce(forceDirect.normalized * force, ForceMode.Force);
+
     }
 
     protected void OnTriggerEnter(Collider collider)

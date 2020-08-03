@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MouseManager : MonoBehaviour
+public class MouseManager : Singleton<MouseManager>
 {
     [SerializeField]
     private TrailRenderer prefabTrail;
@@ -20,6 +20,7 @@ public class MouseManager : MonoBehaviour
 
     private int characterLayer;
     private int pathLayer;
+    private int pathCharacterLayer;
     private int noPathLayer;
     private RaycastHit mouseHit;
     private float timeOldClick;
@@ -27,38 +28,19 @@ public class MouseManager : MonoBehaviour
     private bool isDoubleClick = false;
     private float findRadius = 1.5f;
     private int maxWrongPath = 30;
-    #region Singleton
-    static protected MouseManager s_Instance;
-    static public MouseManager instance { get { return s_Instance; } }
-    #endregion
-
-    void Awake()
-    {
-        #region Singleton
-        if (s_Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        s_Instance = this;
-        #endregion
-    }
     
     private void Start()
     {
         characterLayer = LayerMask.GetMask("Character");
         pathLayer = LayerMask.GetMask("Path") & ~LayerMask.GetMask("Character");
+        pathCharacterLayer = LayerMask.GetMask("Path") & ~LayerMask.GetMask("Character");
         noPathLayer = LayerMask.GetMask("NoPath");
     }
 
-    void Update()
+    private void Update()
     {
-        //drag path
-
-        ControleDragPath();
-
-        //click to unit
-        //CheckLeftClick();
+        //ControleDragPath();
+        CheckLeftClick();
     }
 
 
@@ -204,16 +186,18 @@ public class MouseManager : MonoBehaviour
         return results.Count > 0;
     }
     
-    private void CheckLeftClick()
+    public void CheckLeftClick()
     {
+        //if (EventSystem.current.IsPointerOverGameObject()) return;
         if (IsPointerOverUIObject()) return;
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             Unit unitTarget;
             
-            if (Physics.Raycast(mouseRay, out RaycastHit mouseHit, 100, characterLayer))
+            if (Physics.Raycast(mouseRay, out RaycastHit mouseHit, 100))
             {
+                
                 //attack
                 unitTarget = mouseHit.collider.GetComponent<Unit>();
                 if (unitTarget)
@@ -221,7 +205,6 @@ public class MouseManager : MonoBehaviour
                     OnClickRightObject(unitTarget, mouseHit.point);
                     return;
                 }
-
                 //move
                 Collider filterTerrain = mouseHit.collider.GetComponent(typeof(Collider)) as Collider;
                 if (filterTerrain)
@@ -232,6 +215,7 @@ public class MouseManager : MonoBehaviour
             }
         }
     }
+
     private void ImprovePath()
     {
         int indexRemove = -1;
@@ -253,15 +237,11 @@ public class MouseManager : MonoBehaviour
 
     private void OnClickRightObject(Unit target, Vector3 hitPoint)
     {
-        Unit selected = PController.instance.GetClosestFreePlayerUnit(hitPoint);
-        //if (selected != null && target.GetTeam() != selected.GetTeam())
-        //    selected.Command = new AttackCommand(selected, target);
+
     }
 
     private void OnClickRight(Vector3 hitPoint)
     {
-        Unit selected = PController.instance.GetClosestFreePlayerUnit(hitPoint);
-       // if(selected != null)
-        //selected.Command = new RushCommand(selected, hitPoint);
+        UnitManager.instance.hero.SetMoveTarget(hitPoint);
     }
 }

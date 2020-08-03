@@ -6,9 +6,6 @@ using UnityEngine.UI;
 
 public partial class Unit : MonoBehaviour
 {
-    public List<IUnitEffect> effects = new List<IUnitEffect>();
-
-
     private void AddEffects(List<IUnitEffect> p_effects)
     {
         effects.AddRange(p_effects);
@@ -21,16 +18,13 @@ public partial class Unit : MonoBehaviour
 
     public void Teleport(Vector3 toPoint)
     {
-        agent.enabled = false;
-        transform.position = toPoint;
-        agent.enabled = true;
-        agent.destination = toPoint;
+        ch_control.Move( toPoint - transform.position);
     }
 
     public void Push(Vector3 direction)
     {
         notMove = true;
-        agent.destination = transform.position +  direction;
+        //agent.destination = transform.position +  direction;
     }
 
     public void Phobia(Vector3 direction)
@@ -41,7 +35,7 @@ public partial class Unit : MonoBehaviour
 
     public void Slow()
     {
-        moveSpeed = 0.5f;
+        moveSpeed = 0.05f;
     }
 
     private void OnDie(Damage damage)

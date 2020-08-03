@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
 
-public class FireBall : IMagic
+public class FireBall : AMagic, IHealth
 {
     private bool once;
-    private float speed = 10f;
+    private float speed = 15f;
     private PhotonView photonView;
 
     public override void Setup(SpellInfo p_info)
@@ -31,32 +31,39 @@ public class FireBall : IMagic
 
     private void OnTriggerEnter(Collider collider)
     {
+
         if (once) return;
-        Unit enemy = collider.GetComponent<Unit>();
-        if (enemy)
+        IHealth enemy = collider.GetComponent<IHealth>();
+        if (enemy != null)
         {
             once = true;
-            float distance = 10000;
-            float fix = 2f;
-
             enemy.TakeDamage(CreateDamage(enemy));
-            transform.position = transform.position + transform.forward * distance;
-            Destroy(gameObject, fix);
+            StartDestroy();
         }
     }
 
-    private Damage CreateDamage(Unit enemy)
+
+    private void StartDestroy()
+    {
+        float distance = 10000;
+        float fixLifeTime = 2f;
+
+        transform.position = transform.position + transform.forward * distance;
+        Destroy(gameObject, fixLifeTime);
+    }
+
+
+    private Damage CreateDamage(IHealth enemy)
     {
         float pushForce = 2f;
         
-        Vector3 attackDirection = enemy.transform.position - transform.position;
         Damage dama = new  Damage();
         dama.damageValue = damage;
-        PushEffect effect = new PushEffect(enemy)
-        {
-           // force = (enemy.transform.position - transform.position).normalized * pushForce
-        };
-        dama.effects.Add(effect);
+        //PushEffect effect = new PushEffect(enemy)
+        //{
+        //   // force = (enemy.transform.position - transform.position).normalized * pushForce
+        //};
+        //dama.effects.Add(effect);
         return dama;
     }
 
@@ -70,5 +77,8 @@ public class FireBall : IMagic
         PhotonNetwork.Destroy(photonView);
     }
 
-
+    public void TakeDamage(Damage damage)
+    {
+        StartDestroy();
+    }
 }
